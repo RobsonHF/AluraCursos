@@ -1,0 +1,225 @@
+<!DOCTYPE html> é usada no começo de TODOS os docs de html e serve para que o navegador identifique que você está utilizando html. Nâo há necessidade de fechar a tag. Se não colocar a versão de html (html2, html3) a tag estima que você está usando a versão mais recente do html (a 5 no caso)
+
+<html> essa é uma tag de conteúdo e todo o meu programa fica dentro dela. Precisa ser fechada.
+
+- Pode ser passados atributos dentro da tag html como lang="pt-br". Ele serve para que a lingua escrita no site seja passada ao navegador para que possa oferecer ou não um tradutor.
+
+<meta charset="UTF-8"> serve para que os acentos, caracteres especiais etc sejam reconhecidos no padrão europa/América do sul
+
+<head> são as informações que eu quero passar ao navegador. Coisas como title, meta etc.
+
+<header> é o CABEÇALHO da página. Não confundir com head.
+
+<body> são os conteúdos que eu quero passar.
+
+<title> é o título que aparece no nome da guia/página no navegador lá em cima.
+
+
+<p> paragrafo
+<h1> título
+<strong> negrito
+<em> itálico
+
+
+Ao usar várias tags, o correto é você usar uma dentro da outra e fechar na ordem:
+
+<h1><strong><p>blabla</p></strong></h1>
+
+
+===========cap 1 aprendemos:
+- A definir a estrutura básica do HTML
+-- Com a tag DOCTYPE, definimos qual versão do HTML estamos utilizando
+-- A tag <html>, que marca o conteúdo a ser renderizado no navegador
+--- Dentro desta tag, podemos definir a linguagem da página, através da propriedade lang
+- Como passar as informações do encoding da nossa página para o navegador, através da tag <meta> e da propriedade charset
+- Como definir o título de uma página, através da tag <title>
+- Como separar as informações que estão sendo passadas para o navegador, utilizando a tag <head>
+- Como separar o conteúdo da página, utilizando a tag <body>
+
+
+===========CSS inline
+- o css pode ser colocado dentro do própria linha (INLINE) usando atributos dentro das tags:
+
+<p style="text-align: center">
+
+===========CSS STYLE
+NA <HEAD> eu coloco a tag<style> e dentro coloco a tag que eu quero alterar no html para todas desse tipo. Por exemplo:
+
+<style>
+	p {text-align: center
+}
+</style>
+
+==============CSS ARQUIVO EXTERNO
+
+- um outro arquivo com o css inteiro. Tem que colocar na <head>
+
+<link rel="stylesheet" href="style.css">
+
+- Essa tag completa vai fazer o relacionamento entre os arquivos html e css e vai aplicar os estilos de acordo com as referências colocadas nas classes e ids no html.
+
+- isso é bom porque dá pra aplicar as mesmas propriedades de estilo para várias páginas diferentes, bastando apenas colocar o mesmo link de referência e utilizar as mesmas classes html.
+
+============= mexendo nos elementos html
+
+- text-align: center/left/right : alinhamento
+
+- background: red : cor do background
+
+- dá pra colocar no css uma tag que está dentro de outra. E o estilo só será aplicado quando tiver essa estrutura de tags. Por exemplo?
+
+<em><strong>balbalba</strong></em>
+
+para alterar o blabla e apenas ele e não qqr outro strong, eu coloco no css:
+
+em strong {
+	color: red;
+}
+
+estilo em cascata é quando eu altero uma propriedade do pai, todos os filhos recebem. Por exemplo: mudou o body mudou tudo.
+
+
+=========CORES
+- as cores podem ser adicionadas com a # _ _ _ _ _ _
+# seguido de 6 números hexadecimais.
+
+0: zero
+F: tudo
+
+e seguem 2 _ _ para cada cor do RGB.
+Ou seja:
+
+Vermelho: FF0000
+Verde: 00FF00
+Azul: 0000FF
+
+-------------
+também podem ser colocadas com o próprio nome em inglês (red, green, lightblue)
+-------------
+também podem ser colocadas direto em código rgb seguindo o padrão:
+rgb(R,G,B) onde muda-se o RGB interno por um número de 0 a 255. Ou seja:
+
+Vermelhor: rgb(255,0,0)
+Verde: rgb(0,255,0)
+Azul: rgb(0,0,255)
+
+==========cap 2 aprendemos:
+Nesta aula, aprendemos:
+
+- A mexer na apresentação dos textos
+- No alinhamento deles (text-align)
+- No tamanho da fonte (font-size)
+- Na cor de fundo (background)
+- Na cor do texto (color)
+- CSS inline
+- Na linha onde temos a nossa tag, adicionamos a propriedade do CSS
+- A tag <style>
+- Dentro da tag, podemos colocar marcações de CSS referentes aos elementos que temos no nosso HTML
+- A apresentação do CSS com um arquivo externo
+- Como funciona o estilo em cascata do CSS
+- Como importar um arquivo externo de CSS dentro da nossa página HTML
+- Como representar cores no CSS
+- Através do nome da cor
+- Através do seu hexadecimal
+- Através do seu RGB
+
+============id
+você coloca id para referenciar um elemento em uma única linha que seja único e que tenha um estilo único no CSS. Nenhum outro elemento poderá ter o mesmo id.
+
+===============IMAGEM
+<img src="link> não precisa fechar.
+
+após src dá pra colcoar identificador para mexer na imagem no css.
+
+================CSS para mudanças básicas
+
+todos os elementos podem receber algumas característica básicas como:
+
+
+width: 100% (em porcentagem) ou 100px (em pixels) é a largura da imagem
+
+height: 100% (em porcentagem) ou 100px (em pixels) é a altura da imagem
+
+- quando se coloca em porcentagem, não importa se eu redimencionar meu navegador, ele sempre vai pegar aquela porcentagem da tela proporcionalmente de modo "dinâmico".
+ 
+
+- ao mexer na altura e largura, costuma se mexer apenas em um. pq ao mexer em um a imagem muda proporcionalmente. Se mexer nos dois, ela se achatará em alguma das direções.
+
+border: 10px solid black (borda, tamanho e cor sólida)
+
+padding: 20px (ele cria MARGEM INTERNA)
+
+- pode fazer padding-top: pra margem apenas pra cima, left, right etc
+
+margin-left (margem EXTERNA, tipo moldura)
+
+=============cap3 o que aprendemos
+
+- Como reestruturar o nosso código, removendo os CSS inline e colocando-os no arquivo CSS externo
+- Como criar um identificador para marcar especificamente um elemento
+- Como fazer referência a esse identificador no CSS
+- Como adicionar uma imagem à nossa página
+- Como ajustar a altura do elemento, através da propriedade height
+- Como ajustar a largura do elemento, através da propriedade width
+- Como ajustar o espaçamento interno do elemento, através da propriedade padding
+- Como ajustar o espaçamento externo do elemento, através da propriedade margin
+- Como se comporta um time de front-end hoje em dia
+
+=============class
+
+é para aplicar caracteristicas css em vários elementos ao mesmo tempo. a chamada dela é feita no css por um .
+
+ex:
+.itens {
+	font-size: 20px;
+}
+
+no html ele é colocado como se fosse o id, só que, obviamente com class ao invés de id.
+
+====================div
+são divisões para marcar uma separação no conteúdo do html do site apresentado. Para organizar melhor as classes etc.
+
+================mexendo com as divs
+display: inline-block = serve para permitir que o bloqueio default dos navegadores que não permitem que dois elementos fiquem na mesma linha um ao lado do outro saia. Agora podemos colocar uma imagem ao lado de um texto, por exemplo.
+
+vertical-align: top = novamente, o default dos navegadores é o alinhamento entre dois itens que estão lado a lado seja realizado pela parte de baixo. com o vertical-align: top colocamos esse alinhamento por cima, como é mais bonito de ver.
+
+================LISTAS
+ordenadas: <ol> para dizer que é lista ordenada e dentro dela coloca-se cada item <li></li>
+
+não ordenadas: <ul> para dizer que é não ordenada e dentro dela coloca-se cada item <li></li>
+
+
+==========cap4 o que aprendemos:
+- A trabalhar com listas não-ordenadas e listas ordenadas
+- Para cada um dos itens da lista, utilizamos a tag <li>
+- O conceito das classes no CSS
+- Elas servem para marcar itens, só que são repetíveis
+- Como referenciar uma classe no CSS
+- Divisões de conteúdo, utilizando a tag <div>
+- Os comportamentos inline e block
+
+============cap5 o que aprendemos:
+
+- O conceito de cabeçalho da página e como criá-lo
+- Que o cabeçalho da página deve ter mais destaque
+- Que não é recomendado criar estilos usando tags
+- O ideal é usarmos classes para tudo
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

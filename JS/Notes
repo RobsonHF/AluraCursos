@@ -1,0 +1,308 @@
+- Matheus (estagiário)
+- Roney (estagiário)
+- Lucas (ao meu lado, boné)
+- Wendel (líder téc)
+- Vinicius (Infra mais careca)
+- Ambimael (infra mais novo)
+- Mauro (de social que veio falar comigo, talvez diretor?)
+- Guigui (menina cabelo raspado)
+- Gui (ruivo da barba)
+- Thais (ruiva do RH-financeiro)
+- Grazi (RH)
+- Maria (limpeza)
+
+
+
+Todas as salas do 9º andar são da Icolabora, MENOS A 92. A 98 é onde fica a copa principal e onde tem café e tals.
+
+
+
+JavaScript
+
+- back end de sites/servidores/banco de dados (MongoDB)
+
+- para funcionar, preciso colocar entre as tags <script></script>
+
+- devo sempre usar o console do navegador para ver erros e fazer testes rápidos no meu código
+
+- DOM é uma representação (cópia) em memória do HTML, é onde o js vai fazer modificações atravez do document.querySelector(); 
+
+- no document.querySelector(); dá para se selecionar uma parte do documento inteiro de html (tipo uma tag específica 'h1' ou uma classe)
+
+- Separar a organização de nosso código em arquivos .js
+- Importar arquivos .js sempre ao final do body
+- A representação do HTML pela variável document
+- A função que faz busca querySelector()
+- Preferir selecionar por #id ou .classe
+
+- sempre que eu quiser buscar uma CLASSE no querySelector ou em qqr outra função do JS, devo começá-la com . e entre aspas (".info-altura")
+
+- QUERYSELECTOR seleciona apenas UM item.
+
+- QUERYSELECTORALL seleciona TODOS os itens da classe.
+
+- variável.tofixed(x) coloca x como número de casas decimais de um número
+
+- quando eu quero alterar um estilo de uma linha ou de algo na página usando o JS, é bom eu na real CRIAR UMA CLASSE ao novo conjunto de elemetos que desejo alterar e pela classe eu mudar no CSS. paciente-invalido com as alterações de estilo que eu quero e depois no JS colocar paciente.classList.add("paciente-invalido"); para que essa linha do td se torne dessa classe e logo seja alterada pelo CSS. 
+
+- A classe que adiciona classes em um dado, pelo JS, é .classList.add("")
+ex: criar lá no CSS a classe 
+
+- Como selecionar diversos elementos com a função querySelectorAll()
+- Relembramos um método clássico de iteração com o for
+- Vimos como manipular estilos com a propriedade .style
+- Vimos que devemos utilizar camelCase quando queremos modificar uma propriedade que tenha duas palavras, como a background-color
+- A boa prática de não alterar o estilo diretamente no Javascript e sim modificar as classes dos elementos com a propriedade .classList
+
+- titulo.addEventListener("", NomedaFunção) -> para escutar eventos da tela do site. 
+Dentro vc pode colocar, por exemplo: "click". Ao lado, no nomedaFunção coloco a ação que será executada ao clicar.
+
+- Posso criar a função do lado de fora do meu evento:
+titulo.addEventListener("click", mostraMensagem);
+
+function mostraMensagem(){
+    console.log("Olá, eu fui clicado!");
+
+- Ou posso criar a função do lado de dentro do meu evento, que é chamada FUNÇÃO ANONIMA (só existe enquanto meu evento for executado):
+titulo.addEventListener("click", function (){
+    console.log("olha só, posso chamar uma função anonima")
+});
+
+
+- botao.addEventListener ("click", function(event){
+	event.preventDefault();
+}); COLOCAR EVENT.PREVENTDEFAULT() E PASSAR EVENT COMO PARAMETRO DA FUNÇÃO CHAMADA FAZ COM QUE O BOTÃO NÃO RECARREGUE A PÁGINA!
+
+- em um form, para pegar o valor de cada campo que está sendo adicionado. Tenho que usar a propriedade VALUE.
+    var nome = form.nome.value;
+    var peso = form.peso.value;
+    var gordura = form.gordura.value;
+    var altura = form.altura.value;
+
+- quando quero colocar, seja em um form, tabela ou outra relação de hierarquias, uma "criança" em um "pai" dá para usar a propriedade:
+tabela.append.Child(pacienteTr);
+
+Ou seja, vimos que estamos colocando pacienteTr como filho da tabela. 
+
+Antes, claro, precisamos declarar a variável tabela e associá-la ao documento html com a id correta:
+var tabela = document.querySelector("#tabela-pacientes");
+
+- também, dá para criar elementos de html em js com a propriedade createElemente ("")
+    var nomeTd = document.createElement("td");
+CRIA TAGS
+
+- A diferença entre as funções nomeadas e as funções anônimas
+- A escutar eventos do browser com a função addEventListener()
+- Que a função criadora de elementos é .createElement()
+- A pegar o valor de um input por meio da propriedade .value
+- A acessar os input de um form por meio da propriedade _name_.
+- A adicionar elementos na página e dentro de outros elementos com a função appendChild()
+
+
+- Para cada evento existente no JavaScript, há a propriedade on + nomeDoEvent. No caso, temos onclick para o evento click, onmouseover para o evento mouseover e assim por diante.    botao.onclick = botaoHandler;
+
+=======OBJETO
+- pode-se criar objetos com 
+var paciente = {
+	nome: form.nome.value,
+	peso: form.peso.value,
+}
+
+ou seja, coloca-se as características desse objeto entre as chaves e entre as características apenas VÍRGULA. Também, para atribuir valor a uma característica do objeto, usa-se DOIS PONTOS.
+
+======BOA PRÁTICA
+- quebrar o código gigante do meu site em vários arquivos .js de acordo com os serviços
+
+
+- Dividir o código, separando por funcionalidades do sistema
+- Os objetos em Javascript
+- A quebrar funções grandes em funções menores ,com cada uma com sua responsabilidade
+- A função form.reset() para limpar o formulário 
+
+=============ARRAY
+para declarar arrays:
+var erros = [];
+
+para colocar item dentro do array:
+erros.push("balbla");
+
+push = coloca dentro
+
+===========FOREACH
+todos os arrays têm por natureza a função .forEach
+ela serve para fazer algo com cada item do array. como se fosse um for, porém mais simples.
+
+array.forEach(function(nome){
+	console.log(nome);
+
+=============innerHTML
+obter conteúdo html interno de um elemento:
+var alura = document.querySelector("#alura").innerHTML
+
+mudar html interno de um elemento: 
+ObjetoDeUmElementoHTML.innerHTML = "Novo conteúdo"
+
+===============
+
+- Mais organização de código, exportando as funções de validação.
+- O operador de negação NOT (!)
+- Como validar um formulário
+- A função push para colocar elementos dentro de um array
+- A propriedade innerHTML dos elementos, que foi usada para apagar os itens da <ul>
+- -O método forEach para percorrer arrays
+
+================REMOVE
+a função .remove(); serve para remover um item do html. 
+pacientes.forEach(function(paciente){
+    paciente.addEventListener("dblclick", function(){
+        console.log("Fui clicado com um duplo click");
+        this.remove();
+    })
+
+======================== CLICK BUBBLE
+
+quando eu clico em um evento, ou duplo click ou anyway, o pai do meu evento escuta. E o pai dele e o pai até chegar na main. Ou seja, um click pode mexer com toda a estrutura acima do meu elemento.
+
+ou seja, ao invés de pedir direto para o filho sair, eu posso colocar um evento para que o pai ouça o click e remova o filho que foi clicado. isso é bom por exemplo para dados que serão inputados DEPOIS do carregamento da página (os filhos talvez não estivessem lá nesse momento, mas o pai com ctz tava)
+
+PARA PEGAR O ALVO DO EVENTO: event.target
+
+PARA PEGAR O PAI DO ALVO: event.target.parentNode
+
+PARA PEGAR O ESCUTADOR DO EVENTO: this
+
+e isso funciona como uma LISTA LIGADA. Ou seja: 
+
+event.target.parentNode.parentNode eu vuo mexer com o AVÔ do evento. E assim por diante.
+
+=========================ANIMAÇÃO
+- efeito visual é CSS
+
+=======setTimeout(function(){ QUAL EVENTO EU QUERO QUE SEJA SEGURADO }, TEMPOEMMILISSEGUNDOS);
+
+tabela.addEventListener("dblclick", function (event) {
+    event.target.parentNode.classList.add("fadeOut");
+    setTimeout(function(){
+        event.target.parentNode.remove();
+
+    },500);
+  
+})
+
+- não esquecer de criar essa classe lá no CSS para que o efeito visual seja aplicado.
+
+=======display: none
+dá pra colocar uma classe no CSS com display: none para que ele fique invisível.
+
+=================
+
+- O novo evento de dblclick
+- Como os eventos propagam atráves da página
+- A delegação de eventos
+- Como animar uma remoção com o setTimeout
+
+
+=============EXPRESSÃO REGULAR
+serve para eu procurar TIPO CTRL+F uma palavra ou expressão em um texto maior. var expressao = new RegExp(this.value, "i");
+
+é importante colocar o ".test(variável a ser testada)" em um IF ou coisa do tipo para que seja efetuada a procura.
+ex:
+ var expressao = new RegExp(this.value, "s");
+        if ( !expressao.test(nome) && this.value!=""){
+            paciente.classList.add("invisivel");
+
+Ou seja, eu mando uma variável ter o "new RegExp" e passo para ele os parâmetros: qual valor eu quero comparar, se é case sensitive ou não.
+
+"i" é case I-nsensitive
+"s" é case S-ensitive
+
+- Tem um curso da alura focado só em expressão regular
+
+- também tem uma outra função que pode ser usada como alternativa à RegExp: substr(x, y) onde x é o primeiro caractere da palavra a ser pego e y é o último. (substring)
+
+
+
+===================
+- O novo evento de input
+- O truque de deixar invisível adicionando uma classe com display:none
+- Como realizar uma busca, escondendo todos os elementos e mostrando apenas aqueles que nos interessam
+- Como buscar por apenas um pedaço de uma palavra com as Expressões Regulares em Javascript
+
+===============var xhr = XMLHttpRequest()
+o XMLHttpRequest é o objeto responsável por fazer requisições http
+
+ele tem que ser configurado antes com algumas funções a depender de como eu quero fazer essa requisição.
+
+.open ("GET", "SITE"): abre a conexão com o endereço e pega os dados (apenas pega, não traz)
+
+.send(); : traz os dados. Porém não mostra, apenas carrega na memória do DOM.
+
+.status mostra se deu erro e qual erro deu, o status da requisição. Por exemplo, 200 é a correta, bem sucedida. 404 é not found, etc. Então podemos colocar um 
+if (xhr.status == 200) { faça o que tem que se rfeito } else { mensagem de erro };
+
+.responseText mostra o texto da resposta da requisição
+
+================AJAX
+
+é o modo de fazer requisições sem travar meu js, ou seja, de modo "assíncrono".  (ou seria síncrono?) sem usar o navegador. ele faz duas coisas ao mesmo tempo.
+
+=================JSON
+é um formato de texto que tem cara de js mas não o é. Por isso tem que fazer o JSON.parse(resposta) para que sua resposta consiga ser transformada em objeto js para usar
+
+===============FINAL
+
+- Como fazer uma requisição assíncrona com o Javascript
+- O objeto XMLHttpRequest
+- Como configurar e enviar uma requisição
+- O evento de load
+- O que é a técnica AJAX.
+- O formato JSON
+- Como converter JSON para um objeto - Javascript com a função JSON.parse()
+- Como lidar com erros durante o AJAX
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
