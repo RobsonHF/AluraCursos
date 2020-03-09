@@ -14,6 +14,10 @@
 
 <title> é o título que aparece no nome da guia/página no navegador lá em cima.
 
+<main> </main> é o corpo principal do meu site.
+
+<footer> </footer> é a parte de baixo do meu site.
+
 
 <p> paragrafo
 <h1> título
@@ -206,17 +210,437 @@ não ordenadas: <ul> para dizer que é não ordenada e dentro dela coloca-se cad
 - Que não é recomendado criar estilos usando tags
 - O ideal é usarmos classes para tudo
 
+=============hover
+
+quando quero que alguma cor ou alguma outra propriedade de um item html mude dinamicamente ao COLOCAR O MOUSE EM CIMA, coloco a propriedade :hover no css. ex.
+
+.produtos:hover {
+	border-color: #C78C19;
+}
+
+para algumas propriedades, como tamanho da fonte ou mesmo a fonte, eu tenho que especificar após a palavra hover. ex.:
+
+.produtos li:hover h2 {
+	font-size: 34px
+
+==============active
+
+quando quero que algum elemento mude alguma propriedade quando o meu CLICK estiver ATIVO, ou seja, quando eu aperto o botão e NÃO SOLTO. enquanto eu segurar o click, o elemento estará mudando.
+
+ex.;
+
+.produtos li:active {
+	border-color: #088C19;
+}
+
+=== HOVER E ACTIVE funciona para todos os elementos filhos do que eu colocar no css.
+
+
+==============LINK CLICÁVEL E NAVEGÁVEL tag <a>
+
+<a href="endereço"> clique aqui</a>
+
+=================UNICODE
+o unicode-table.com é um site onde eu consigo ver vários códigos de caracteres especiais. Tais como setas, moedas, estrelas etc. Ele pode ser usado na forma ENTIDADE direto no html. basta colocá-lo no espaco direto do texto onde você quer que ele apareça.
+
+===============IMAGEM DE FUNDO PELO CSS
+dá pra colocar uma imagem pequena que o CSS replica várias vezes uma do lado da outra até preencher completamente o espaço do elemento. é colocado da seguinte maneira:
+
+background: url("link");
+
+
+========= nesta aula aprendemos
+- A tag footer, para o rodapé da nossa página
+- Que, com CSS, podemos colocar uma imagem de fundo em um elemento
+- Quando colocamos uma imagem de fundo em um elemento, o CSS, por padrão, copia e cola a imagem diversas vezes até ocupar todo o espaço do elemento
+- A tabela Unicode
+
+===============FORMULÁRIOS - inputs
+
+<form> é usada para input de dados.
+
+em geral, as tags básicas para usá-lo são:
+
+<label for="xxx">digite</label>
+<input type="text" id="xxx">
+<input type="submit" value="Enviar formulário">
+
+é importante que o for do label fique sempre igual ao id do campo input. Pq isso faz com que o navegador coloque o cursos de escrita direto no espaço certo ao clicar no label com o mouse. 
+o type pode ser number ou text. 
+
+
+O input submit é o botão de enviar. Ele deve SEMPRE estar presente nos formulários, pois é através dele que os dados escritos são enviados. Se eu não coloco value nele, vai o padrão do navegador (pode traduzir ou não o submit). Se eu coloco, sempre mostrará o que eu colocar no value.
+
+<input type="text" id="xxx"> para inputs de texto
+
+<input type="number> para inputs de número
+
+<input type="radio" name="contato" value="contato"> para radiobox (pequenos círculos)
+para que isso funcione adequadamente de poder selecionar apenas um radio, colocar o mesmo "name" em todos.
+
+<textarea name="Mensagem" id="mensagem" cols="80" rows="10"></textarea>
+para criar caixas de texto. É ncessária a label acima com o mesmo nome. O número de cols é colunas e rows é linhas. Porém, essas propriedades podem ser alteradas direto no navegador. Para se tornarem dinâmicas, é necessária alteração no CSS.
+
+
+mobileinputtypes.com
+é um site que mostra como todos os tipos de inputs se mostram em celulares. é preciso colocar o tipo certo com o que vamos fazer para que os teclados dos celulares se ajustem dinamicamente a isso. Por ex. colocar tipo tel para números de telenfone, number, search, password etc.
+
+========para campos obrigatórios
+
+basta colocar ao final das características do input a palavra: required.
+
+EX.
+<input type="text" id="nome" required>
+
+=====================placeholder
+
+para que já haja alguma dica do que colocar em cada campo, colocar a característica placeholder.
+
+===========checked
+para radio, colocar a caracterísica checked a deixará automaticamente marcada por default
+
+também pode ser colocada no checkbox
+
+=================o que aprendemos:
+
+- A criar um formulário HTML
+- A tag que o representa é a <form>
+- A tag <input>, para a entrada de dados do usuário
+- A criar uma etiqueta para o input, com a tag <label>
+- A conectar um input com o seu label
+- Colocamos um id para o input e associamos esse id ao atributo for do label
+- Alguns tipos de input, como text e submit
+- Que label e input por padrão possuem o display inline
+- A estilizar o nosso formulário
+
+
+===============o que aprendemos:
+- O textarea, para entradas de texto de mais de uma linha
+- O input do tipo radio
+- Como agrupar vários input do tipo radio, impedindo que mais de um input seja selecionado
+- O input do tipo checkbox
+- Que podemos criar um input dentro de um label, assim associando-os
+- Mais estilizações para a nossa página
+- Como funciona a hierarquia no CSS
+- O select, que é seletor, um campo de seleção de um item, e o option, que representa cada opção do seletor
+
+============select
+o select é para criar um campo de selecionar as opções, como cidades, turmas etc. com ele precisamos criar as opções, que são as tags option.
+
+<select>
+	<option>
+	</option>
+</select>
+
+
+===========fieldset e SECTION
+
+semelhante ao div, porém esse é uma agrupamento de textos específicos sobre alguma coisa, não necessariamente divisões na tela.
+
+<fieldset>
+	<legend>
+	</legend>
+</fieldset>
+
+para colocar um texto dentro de um fieldset como título do que virá abaixo, como o título de um formulário, é usada a palavra legend (não p ou h2)
+
+também há o <section> que é um agrupamento de bloco semântico. Ou seja, não muda nada lá no site, mas na configuração do código muda.
+
+===============IMAGEM
+
+<img src="link" alt="">
+o alt serve para mostra rum texto quando minha imagem não carrega ou quando o mouse é deixado em cima da imagem.
+
+==============o que aprendemos:
+- Alguns tipos de inputs para celular: email, tel, number, password, date, datetime, month e search
+- Como não permitir que um campo não seja preenchido, através do atributo required
+- Como exibir uma sugestão de preenchimento para os campos, através do atributo placeholder
+- Como deixar uma opção marcada por padrão nos nossos input radio e checkbox, através do atributo checked
+- Como estruturar melhor o nosso código com fieldset e legend
+- Como adicionar uma alternativa à imagem, descrevendo-a, com o atributo alt
+
+
+============botão de formulário
+
+o botão de enviar pode ser alterado em todas as características já vistas até agora. Mas para deixar um botão legal e bonito as características abaixo são bacanas:
+
+.enviar {
+    width: 40px;
+    padding: 15px 0;
+    background: orange;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    transition: 1s all;
+    cursor: pointer;
+}
+
+.enviar:hover {
+    background: darkorange;
+    transform: scale(1.2);
+}
+
+Ou seja, a transição de cor do background levará 1s para ser concluída, deixando a mudança mais suave;
+o cursor: pointer é para que o cursor mude de seta para mãozinha, para dizer que é clicável.
+
+tranform faz com que a scala do botão aumente ou diminua.
+
+=============o que aprendemos:
+- Como estilizar o botão de envio de formulário
+- A realizar transições nos nossos elementos, com a propriedade CSS transition
+- A modificar o estilo do ponteiro do mouse, quando passar por cima de determinado elemento, através da propriedade CSS cursor
+- A realizar transformações nos nossos elementos, como aumentar proporcionalmente a escala de determinado elemento ou rotacioná-lo, através da propriedade CSS transform
+
+
+===================TABELAS
+        <table>
+            <thead>
+            <tr>
+                <th>Dia</th>
+                <th>Horário</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Segunda</td>
+                <td>8h ~ 20h</td>
+            </tr>
+            <tr>
+                <td>Quarta</td>
+                <td>8h ~ 20h</td>
+            </tr>
+            <tr>
+                <td>Sexta</td>
+                <td>8h ~ 20h</td>
+            </tr>
+            </tbody>
+</table>
+
+as tabelas têm que ficar dentro da tag <table> e pode ser serparada em thead, tbody e tfoot para melhor organizar a tabela. 
+
+=============o que aprendemos:
+- A criar uma tabela HTML
+- A tag table, que representa a tabela
+- A tag tr, que representa a linha da tabela
+- A tag td, que representa a célula da tabela
+- A tag thead, que representa o cabeçalho da tabela
+- A tag tbody, que representa o corpo da tabela
+- A tag th, que representa a célula do cabeçalho da tabela
+- A tag tfoot, que representa o rodapé da tabela
+- A estilizar a tabela
+
+
+
+=============FLOAT
+
+a propriedade CSS float faz com que um elemento "flutue" e os outros fiquem ao seu redor. 
+
+.utensilios {
+	flowat: left;
+}
+
+dessa forma, o objeto ficará à esquerda ou qqr outra direção e os outros textos serão puxados pra cima e ficarão ao seu redor, sem pegar seu espaço abaixo. 
+
+para que o elemento "resista" a ir para cima tenho que usar a propriedade CSS clear: left (ou outra direção) para que ele não seja modificado pelo float.
+
+=====================o que aprendemos
+
+- A ajustar a página principal para utilizar os mesmos padrões da página de produtos
+- Medidas proporcionais com CSS
+- Como funciona a flutuação dos elementos e como modificá-la, com a propriedade float do CSS
+- Como limpar o float, com a propriedade clear do CSS
+
+==============FONTES
+
+existem fontes específicas para serem utilizadas na web. 
+
+posso usar o site do google para procurá-las:
+fonts.google.com
+
+após isso, importar a fonte usando o código fornecido nessa página do google.
+
+=========MAPAS
+
+mesmo esquema das fontes. usar o maps.google.com e ir em "compartilhar ou incorporar mapa". Pegar o código html do google e colar no meu código.
+
+usa a tag <iframe> que abre uma "janela" no meu site que mostra uma informação externa. Posso colocar tb no Iframe instagram, video do youtube etc.
+
+
+=======pseudo elementos classes
+
+são "classes" criadas diretamente no CSS para aplicar algum efeito em algum item do hmtl.
+
+por exemplo, podemos ter em uma lista as pseudo clases:
+
+.itens:nth-child(x) onde x é o número do elemento que eu quero "pegar".
+
+.itens:nth-child(2n) pega todos os elementos pares.
+
+.itens:last-child para pegar o último filho da lista
+
+.itens:first-child para pegar o primeiro filho da lista.
+
+
+.titulo-principal:first-letter {}
+
+pega e aplica um estilo a apenas a primeira letra da classe.
+
+p:first-line {}
+
+pega e aplica um estilo a apenas a primeira linha
+
+:after {
+	content: "["
+}
+:before{
+	content: "]"
+}
+
+esses dois criam um espaço onde o css pode ser usado antes ou depois do elemento.
 
 
 
 
 
+============= line-height no css
+altura da linha
+
+=============GRADIENTE DE CORES CSS
+
+para criar cores gradientes: 
+
+background: linear-gradient(orange,blue) ou pode adicionar mais cores seguindo de vírgulas.
+
+pode ser tb o gradiente radial
+
+background: radial-gradiente(red, blue);
+
+Também podemos adicionar inclinações no gradiente: 
+
+background: radial-gradiente(45deg, red, blue);
+
+Também podemos escolher em que ponto cada cor vai iniciar a aparecer:
+
+background: radial-gradiente(red 25%, blue);
+
+
+===========SELETORES DIRETOS
+
+com o símbolo > eu posso no css selecionar apenas as classes filhos diretos da anteriore. por exemplo:
+
+<main>
+	<p>
+
+para pegar só esse p e ignorar todos os outros que não são filhos diretos, eu uso: 
+
+main > p {
+
+=======
+
+posso tb selecionar um elemento que venha logo após o outro, utilizando o sinal de +
+
+img + p {
+
+eu estou pegando o primeiro p que vem depois de uma img
+
+========
+
+posso selecionar TODOS os elementos que venham DEPOIS de um elemento. utilizando o ~
+
+img ~ p {
+
+aqui eu estou pegando todos os p que vem depois de uma img
+
+
+=======
+
+posso selecionar todos os elementos que não são de uma determinada classe ou identificador usando o :not(#classe)
+
+ex
+p:not(#missão) {
+
+estou pegando todos os p que não são identificados como missão
+
+========= calculos
+
+posso realizar calculos de um tamanho de estilo usando
+
+calc(40% , 26px) ele vai calcular exatamente quando seria 40% de 26px.
+
+
+========o que aprendemos:
+-- Seletores avançados CSS
+- Seletor >, para acessar os filhos de determinado elemento. Por exemplo, para acessar todos os p dentro de main:
+main > p {
+}
+- Seletor +, para acessar o primeiro irmão de determinado elemento. Por exemplo, para acessar o primeiro p após um img:
+img + p {
+}
+- Seletor ~, para acessar todos os irmãos de determinado elemento. Por exemplo, para acessar todos os p após um img:
+img ~ p {
+}
+- Seletor not, para acessar os elementos, exceto algum. Por exemplo, para acessar todos os p dentro de main, exceto o p que tem id missao:
+main p:not(#missao) {
+}
+-- Como fazer contas com CSS, com a propriedade calc
 
 
 
+======================opacidade
+
+dá para usar em qqr um dos elementos
+
+em cor:
+
+tem que transformar para rgb:
+
+color: rgb(0,0,0,0.3) (r,g,b,opacidade)
+
+em outros elementos como imagens: 
+propriedade 
+opacity: 0.3;
 
 
+===================SOMBRAS
 
+box-shadow: X Y #000000 (eixo x, eixo y e cor)
+
+dá pra adicionar uma terceira propriedade, blur, grau de espalhamento para não ficar sombra dura.
+
+box-shadow: X Y BLUR #000000 (eixo x, eixo y e cor)
+
+os eixos e o blur são colocados em px
+
+box-shadow: 10px 10px 30px #000000;
+
+dá pra colocar um quarto elemento: BORDA. para ir ao redor do elemento.
+
+box-shadow: X Y BLUR BORDA #000000 (eixo x, eixo y e cor)
+
+box-shadow: 10px 10px 30px, 20px #000000;
+
+os eixos podem ser negativos para efeito ao contrário
+
+dá para adicionar várias sombras ao elemento.
+
+DÁ PRA SOMBRA SER INTERNA:
+
+com a palavra inset (EFEITO OPOSTO)
+
+ box-shadow: inset 0 0 30px #FF0000;
+
+- dá pra fazer sombra em tudo, inclusive TEXTO:
+
+text-shadow: x y blur borda cor
+
+===========o que aprendemos:
+
+- Como manipular a opacidade dos elementos, com a propriedade CSS opacity
+- Como manipular a opacidade das cores
+- Como adicionar um sombreamento em volta dos elementos, com a propriedade CSS box-shadow
+- Como adicionar um sombreamento em textos, com a propriedade CSS text-shadow
 
 
 
