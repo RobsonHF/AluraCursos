@@ -68,6 +68,7 @@ titulo.addEventListener("click", function (){
     console.log("olha só, posso chamar uma função anonima")
 });
 
+===============FORMULÁRIOS
 
 - botao.addEventListener ("click", function(event){
 	event.preventDefault();
@@ -90,6 +91,17 @@ var tabela = document.querySelector("#tabela-pacientes");
 - também, dá para criar elementos de html em js com a propriedade createElemente ("")
     var nomeTd = document.createElement("td");
 CRIA TAGS
+
+para colocar valor dentro de um campo:
+campo.value = 'blalba';
+campo.value = 2;
+
+ou para que o foco do meu cursor VOLTE para um lugar APÓS uma submissão: 
+campos.focus();
+
+lógico, isso após eu adicionar o evento de submit.
+
+=================funções
 
 - A diferença entre as funções nomeadas e as funções anônimas
 - A escutar eventos do browser com a função addEventListener()
@@ -259,6 +271,92 @@ if (xhr.status == 200) { faça o que tem que se rfeito } else { mensagem de erro
 - O formato JSON
 - Como converter JSON para um objeto - Javascript com a função JSON.parse()
 - Como lidar com erros durante o AJAX
+
+
+
+==============MODEL VIEW CONTROL MVC
+São criadas as pastas:
+models
+views
+controllers
+services
+helpers
+
+Ao trabalhar com MVC, é importante sempre lembrar de importar todas as classes e .js utilizados no html.
+
+
+==========CLASSE
+as classes serão sempre criadas com letra MAIÚSCULA. E estarão todas na pasta Models.
+
+o arquivo da classe tem que ser começado com CLASS:
+
+class MinhaClasse {
+variáveis
+atributos	
+funções
+}
+
+O primeiro passo ao criar a classe é criar um CONSTRUTOR:
+
+construtor(){
+
+}
+
+
+posso criar um construtor com parâmetros para que sejam criados instancias já com parâmetros novos e diferentes.
+
+
+além de dados, características iniciais, posso também ter comportamentos nas classes, basta criar uma função lá dentro.
+
+======== INSTANCIAS
+
+para montar uma instancia de uma classe: utilizar a palavra new.
+
+  var n1 = new Negociacao();
+        console.log(n1);
+
+as características para cada instancia de objeto serão alteradas utilizando as variáveis de instâncias.
+
+
+======= MÉTODOS FUNÇÕES CARACTERÍSTICAS PRIVADAS
+
+por CONVENÇÃO, utiliza-se um underline no início do nome da característica que só pode ser acessado pela própria classe. Para acessar essa característica ou método, tem que se utilizar os GET (ou SET)
+
+as palavras get e set podem ser usadas como se fossem funções que se mascaram com a própria característica que elas buscam:
+
+get volume(){
+	return this._quantidade * this._valor;
+}
+
+Ao chamar esse getter, eu posso apenas colocar:
+
+console.log("volume"); 
+
+E ele mostrará o atributo _volume para mim.
+
+==============FREEZE
+
+para combater os acessos indevidos ao encapsulamento, é possível congelar os atributos do meu objetc lá direto no construtor com:
+
+Object.freeze(this);
+
+O freeze é shalow, ou seja, RAZO. ele não congela todos os atributos profundamente, deep.
+
+=================BLINDAGEM NOVO OBJETO NA ATRIBUIÇÃO PROGRAMAÇÃO DEFENSIVA
+
+para garantir que as pessoas não consigam mudar meus atributos protegidos, além de colocar _ no início dos nomes dos atributos e colocar a função Object.freeze(this) no construtor, tb tenho que criar novos objetos no construtor (ou outros métodos) que criem CÓPIAS do que é passado na criação do objeto. Ou seja, quando a pessoa tenta alterar o meu atributo após ter sido criado com um valor, não consigo pois o objeto acabou criando um novo objeto e por isso não consigo chegar diretamente nele. 
+
+ex:
+class Negociacao {
+    constructor(){
+        this._data = new Date(data.getTime());
+
+
+========================VAR E LET
+
+var é global SEMPRE (independente de onde tenha sido criada)
+let é local (ou de ESCOPO DE BLOCO)
+
 
 
 
