@@ -642,6 +642,45 @@ text-shadow: x y blur borda cor
 - Como adicionar um sombreamento em volta dos elementos, com a propriedade CSS box-shadow
 - Como adicionar um sombreamento em textos, com a propriedade CSS text-shadow
 
+============= MOBILE - site responsivo
+meta name="viewport" content="width=device-width"
+é para que a tela mude ao visualizar em celulares
+
+LÁ NO CSS:
+@media screen and (max-width: 480px) {
+}
+
+aqui eu posso colocar um comportamento diferente para telas de até 480px.
+
+
+
+
+
+=============TAMANHO
+
+- tela normal tem 940 pixel
+- celular varia de 350 a 450 
+
+
+tem a medida px que é pixel.
+
+mas tem a medida em que é a altura da fonte usada.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
