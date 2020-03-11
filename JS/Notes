@@ -138,7 +138,8 @@ var erros = [];
 para colocar item dentro do array:
 erros.push("balbla");
 
-push = coloca dentro
+push = coloca dentro do array os elementos. Dá, inclusive para dar merge em dois arrays pelo método push.
+
 
 ===========FOREACH
 todos os arrays têm por natureza a função .forEach
@@ -284,6 +285,12 @@ helpers
 
 Ao trabalhar com MVC, é importante sempre lembrar de importar todas as classes e .js utilizados no html.
 
+model = onde ficam os dados
+controller = onde ficam os comportamentos que realizados com os dados
+view = onde esse dado é puxado e visualizado
+helper = onde ficam as funções auxiliadoras, secundárias que ajudam as principais de classes controllers
+services = 
+
 
 ==========CLASSE
 as classes serão sempre criadas com letra MAIÚSCULA. E estarão todas na pasta Models.
@@ -357,13 +364,188 @@ class Negociacao {
 var é global SEMPRE (independente de onde tenha sido criada)
 let é local (ou de ESCOPO DE BLOCO)
 
+========================BIND
+
+Para que eu consiga diminuir a poluição visual do meu código, posso guardar funções completas dentro de variáveis. Como, por exemplo, a forma abaixo que é padrão para querySelector:
+
+ let inputData = document.querySelector('#data');
+ let inputQuantidade = document.querySelector('#quantidade');
+ let inputValor = document.querySelector('#valor');
+
+Ao invés de repetir sempre o document.querySelector, basta fazer o seguinte:
+
+        let $ = document.querySelector.bind(document);
+        let inputData = $('#data');
+        let inputQuantidade = $('#quantidade');
+        let inputValor = $('#valor');
+
+o síbolo $ é padrão para querySelector.
+
+Porém, para que isso funcione, é preciso que o método querySelector sempre esteja associado ao document. Logo, há a necessidade de demonstrar ao programa que os dois estarão associados com .bind(document).
+
+==========================DOM
+
+é sempre bom evitar ao máximo percorrer o DOM. Fazer isso apenas o mínimo de vezes. O querySelector, por exemplo, a cada vez que é chamado ele percorre o DOM todo procurando o elemento pedido.
+
+Ao invés de usar simples variáveis (como o let ali em cima), usar então um método construtor() com os dados que eu quero usando this. no lugar das variáveis. E depois, fora do construtor, chamar pelo this. Desse modo, eu busco apenas uma vez os elementos e depois trabalho com o que está direto na classe.
+
+Isso cria como se fosse um cache, pra buscar informações de modo mais rápido. Ex:
+
+class NegociacaoController {
+
+    constructor(){
+        
+        let $ = document.querySelector.bind(document);
+        this.inputData = $('#data');
+        this.inputQuantidade = $('#quantidade');
+        this.inputValor = $('#valor');
+
+    }
+
+    adiciona(event) {
+
+        event.preventDefault();
+
+        console.log(this.inputData.value);
+        console.log(this.inputQuantidade.value);
+        console.log(this.inputValor.value);
+        
+        
+    }
+}
+
+Porém, é necessário converter alguns tipos de dado, como data. Pois desse modo o dado vem como string.
+
+
+==============convertendo concertando split data
+
+Para que a data seja convertida de string para um tipo que consiga ser passado para o date, posso fazer a função .split() e passar como parametro o -
+
+ex: 
+
+let dataString = '2015-12-11';
+dataString.split(-)
+
+Ele me retorna um array com cada elemento da data separado:
+["2015", "12", "11"]
+
+=============================data
+
+como a data é uma array, o mês na vdd vai de 0 a 11. Logo, o mês precisa ser decrementado em um para que fique certo.
+
+var data = '2016-11-12'
+passar para o new Date (2016,10,12)
+
+        let data = this._inputData.value;
+        data = data.split('-');
+              
+        data[1]-=1;
+        data = new Date(...data);
+
+
+=================spread operator
+
+...
+
+é usado para desmembrar um array ao passar como parametro de uma função. Seria como se a primeira posição do array fosse o primeiro parâmetro, o segundo o segundo e assim por diante.
+
+let data = new Date (...this._inputdData.value.split('-'));
+
+é usado bastante em data
+
+
+==========map
+
+função map é usada para passar em um array e atribuir novos valores a cada item.
+
+let numeros = [10, 20, 30]
+let novosNumeros = numeros.map(function(item) { return item + 10});
+
+ou
+
+let numeros = [3,2,11,20,8,7];
+let novosNumeros = numeros.map(item =>  item % 2 ? item * 2 : item);
+console.log(novosNumeros);
+
+quando eu quero identifica e mudar apenas um dos elementos do array, posso colocar índice no segundo parametro.
+
+        let data = new Date(...this._inputData.value
+            .split('-')
+            .map(function(item, indice) { 
+                if(indice ==1){
+                    return item - 1; 
+                } return item;}));
+
+==================arrow functions (função flecha)
+com ela, você pode suprimir a palvra function. Porém há a necessidade de colocar uma flecha => entre os parâmetros da função e a chave de abertura da função. Também omite-se a palavra return:
+
+.map(function(item, indice) {
+	instrução;
+	return instrução;
+};
+
+passa a ser:
+
+.map((item, indice) => {
+	instrução;
+	instrução;
+}
+
+Quando eu tiver APENAS UMA INSTRUÇÃO, apenas UMA, eu posso inclusive omitir o bloco e deixar ainda mais visualmente bonito:
+
+.map((item, indice) => instrução);
 
 
 
 
+==================================exercício data join reverse
+
+let dataString = '17-05-2016';
+E que usará o construtor de Date, que está preparado para receber uma data no formato ano/mes/dia.
+
+Escreva um código que altere dataString para que seu conteúdo fique compatível com o formato ano/mes/dia. No final, instancie uma Date, exibindo no console seu valor.
+
+minha resposta:
+
+          let dataString = '17-05-2016';
+          dataString = dataString.split('-');
+          let cto = dataString[0];
+          dataString[0] = dataString[2];
+          dataString[2] = cto;
+          let dataNova = new Date(dataString);
+          console.log(dataNova);
+          dataNova = new Date(...dataString);
+          console.log(dataNova);
+
+
+resposta:
+let dataString = '17-05-2016';
+
+dataString = dataString.split('-').reverse().join('/');
+
+let data = new Date(dataString);
+
+console.log(data);
 
  
+a função split separa uma string de acordo com o parametro passado e cria uma array com todos os valores.
 
+A função reverse pega um array e inverte os dados.
+
+A função join transforma um array em String utilizando um separador passado no parâmetro.
+
+sendo assim o resultado da transformação da dataString acima seria de 17-05-2016 para 2016/05/17
+
+	
+
+============ exercicio criar nova lista dobrando
+
+Temos a seguinte sequência de números:
+
+let numeros = [3,2,11,20,8,7];
+Sua tarefa: criar uma nova lista com a mesma quantidade de números, mas cada elemento da nova lista deve ter seu valor dobrado quando for ímpar.
+
+minha resposta:
 
 
 
