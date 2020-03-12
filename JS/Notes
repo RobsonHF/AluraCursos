@@ -234,6 +234,21 @@ Ou seja, eu mando uma variável ter o "new RegExp" e passo para ele os parâmetr
 - também tem uma outra função que pode ser usada como alternativa à RegExp: substr(x, y) onde x é o primeiro caractere da palavra a ser pego e y é o último. (substring)
 
 
+---------------------
+
+Expressão regular também pode ser colocada direto no comando com //
+
+Exemplo: 
+
+
+if(!/\d{4}-\d{2}-\d{2}/.test(texto)) throw new Error('Deve estar no formato aaa-mm-dd');
+
+Esse exemplo é um if de que se a expressão não for composta de 4 dígitos, -, 2 dígitos, -, 2 dígitos, ela não será aceita. 
+
+Para isso, dentro do // temos que colocar, para Dígitos, a letra d{quantidade de dígitos numéricos}. Pode ser tb a letra D (MAIÚSCULA) que quer dizer quantidade de caracterers (letras)
+
+É importante, vale lembrar, que temos que colocar o .test(variável a ser testada) para que o teste seja realizado.
+
 
 ===================
 - O novo evento de input
@@ -357,6 +372,20 @@ ex:
 class Negociacao {
     constructor(){
         this._data = new Date(data.getTime());
+
+Aqui, estou criando uma outra instancia do Date com a mesma data da data da negociação.
+
+Para passar uma cópia de uma lista, posso retornar uma lista vazia e usar o .concat para concaternar com a lista original. Assim eu dou return na cópia e não na minha lista original.
+
+ex:
+
+get negociacoes() {
+	return [].concat(this._negociacoes);
+}
+
+--------
+
+
 
 
 ========================VAR E LET
@@ -538,20 +567,70 @@ sendo assim o resultado da transformação da dataString acima seria de 17-05-20
 
 	
 
-============ exercicio criar nova lista dobrando
+============ THROW NEW ERROR e CLASSE ESTÁTICA
 
-Temos a seguinte sequência de números:
+As classes estáticas não podem ser instanciadas. Aliás, não preicisam para que eu tenha acesso aos seus métodos. Para criar métodos estáticos, basta colocar a palavra static na frente de cada método. 
 
-let numeros = [3,2,11,20,8,7];
-Sua tarefa: criar uma nova lista com a mesma quantidade de números, mas cada elemento da nova lista deve ter seu valor dobrado quando for ímpar.
+para criar um erro para caso alguém tente instanciar essa classe estática, basta criar um construtor e colocar o comando throw new Error('essa classe não pode ser instanciada');
 
-minha resposta:
+Para outros erros também é assim.
+
+    constructor(){
+        throw new Error('DateHelper não pode ser instanciada'); 
+    }
 
 
+=========== TEMPLATE STRING
+
+serve para concatenação de variáveis:
+
+ao invés de usar o glorioso + , basta usar `texto aqui ${var}`
+
+exemplo:
+
+console.log(`A idade de ${nome} é ${idade}`);
 
 
+============= JOIN (TRANSFORMAR EM STRING)
+
+.join('')
+
+junta com uma string. Posso usar em branco '' quando eu quiser apenas transformar um array em String.
 
 
+========== IIFE Imediatly invoked function expression
+
+é uma função que pode ser imediatamente invocada para criar escopo em javascript. Pode colocar um bloco de comandos dentro de uma expressão string para innerHTML por exmemplo. Para fazê-la, colocar todos os comandos dentro de ( ) e então chamá-lo com ();
+
+Ou seja,
+
+(comandos)();
+
+ex:
+
+<tfoot>
+    <td colspan="3"></td>
+    <td>${
+        (function() {
+
+            let total = 0;
+            model.negociacoes.forEach(n => total+= n.volume);
+            return total;
+       })()
+      }
+    </td>
+</tfoot>
+
+=======================.reduce - reduzir array
+
+pega um array e retorna só um resultado.
+
+.reduce(function(total, n){
+	return total + n.volume;
+}, 0.0)
+
+total é uma variável criada ali mesmo. 
+0.0 no segundo parâmetro da função .reduce é a inicialização da variável.
 
 
 
