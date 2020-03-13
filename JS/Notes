@@ -330,6 +330,16 @@ posso criar um construtor com parâmetros para que sejam criados instancias já 
 
 além de dados, características iniciais, posso também ter comportamentos nas classes, basta criar uma função lá dentro.
 
+----construtor com parametro já com default
+em um construtor com parameto, se eu instanciar sem passar nada pode dar merda. Então para evitar isso, eu posso colocar um valor atribuido ao default do parametro para esses casos. Ficaria da seguinte maneira:
+
+constructor (texto=''){
+	this.texto = texto;
+}
+
+Ou seja, para instanciar eu terei que passar um parametro na minha instancia. Porém, caso eu não passe, o valor do atributo texto será uma string vazia.
+
+
 ======== INSTANCIAS
 
 para montar uma instancia de uma classe: utilizar a palavra new.
@@ -632,7 +642,25 @@ pega um array e retorna só um resultado.
 total é uma variável criada ali mesmo. 
 0.0 no segundo parâmetro da função .reduce é a inicialização da variável.
 
+======================================HERANÇA
 
+quando eu tenho duas views ou outras classes que repetem código (mesmos métodos), dá pra eu criar uma mãe e fazer as filhas herdarem!
+
+Igual java: só botar a palavra extends e a classe mãe
+
+só que além disso, por uma questão de dependência, a mãe tem que ter sido carregada no HTML ANTES das classes filhas, se não vai dar erro.
+
+TAMBÉM, ao passar um elemento para o construtor da classe filha (parametro de instancia), DEVO OBRIGATORIAMENTE fazer um construtor para essa filha chamando o construtor da classe pai e passando esse elemento para ela:
+
+ex.
+
+constructor(elemento) {
+	super(elemento);
+}
+
+============= classe abstrata
+
+no JS não tem! ponto final. não dá pra obrigar uma classe filha a 
 
 
 
