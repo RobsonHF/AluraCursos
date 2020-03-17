@@ -1,6 +1,16 @@
-<button onclick="testando.testando()">clique</button>
+<!-- <button onclick="testando.testando()">clique</button>
 
 <script src="Um.js"></script>
 <script src="Main.js"></script>
-<script>testando = new Main()</script>
+<script>testando = new Main.()</script> -->
+<script src="Conta.js"></script>
+<script src="ContaCorrente.js"></script>
+<script src="ContaPoupanca.js"></script>
+<script>conta1 = new ContaCorrente(200); 
+    conta2 = new ContaPoupanca(300); 
+    conta1.update(2);
+    conta2.update(3);
+    console.log(conta1.saldo); //202
+    console.log(conta2.saldo); //306</script>
+
 

@@ -658,6 +658,14 @@ constructor(elemento) {
 	super(elemento);
 }
 
+Quando tenho dois parametros a ser passado na instancia e apenas um for da classe pai, devo chamar o super(parametro) para que o construtor da classe pai seja chamado. PORÉM ESSE SUPER TEM QUE SER A PRIMEIRAAAAAAAAA INSTRUÇÃO do construtor filho.
+
+ex
+constructor(nome, funcionario) {
+    super(nome); 
+    this._funcionario = funcionario;
+}
+
 ============= classe abstrata
 
 no JS não tem! ponto final. não dá pra obrigar uma classe filha a 
