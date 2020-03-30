@@ -535,7 +535,7 @@ Quando eu tiver APENAS UMA INSTRUÇÃO, apenas UMA, eu posso inclusive omitir o 
 .map((item, indice) => instrução);
 
 
-
+O escopo this de uma arrow function é LEXICO, e não DINAMICO. Ou seja, se eu coloco o this dentro da função, ele será o da minha classe onde estou colocando a função, e não da função em si.
 
 ==================================exercício data join reverse
 
@@ -671,13 +671,44 @@ constructor(nome, funcionario) {
 no JS não tem! ponto final. não dá pra obrigar uma classe filha a 
 
 
+=========== THIS e Reflect.aplly()
+
+o this dinâmico é o que tem seu valor dado no momento de chamada de função. Como ocorre em funções normais.
+
+o this estático é o que tem seu valor definido no momento da declaração. Como ocorre em arrow function.
+
+Para tentar deixar estático um this dinâmico, posso passar um contexto dentro da função e ao mesmo tempo lá na outra classe criar uma função om o API Reflect.
+
+Reflect.apply(nomeDaFuncao, contexto, [outrosParametros]);
 
 
+O primeiro parâmetro é o método ou função que desejamos invocar. O segundo parâmetro é o contexto que o método ou função adotará, ou seja, o valor que será assumido pelo this. Por fim, o último parâmetro é um array que contém todos os parâmetros que o método passado como primeiro parâmetro receberá. Como ele não recebe parâmetro nenhum, passamos um array vazio.
 
 
+========== MIXIN
+
+É quando você cria uma classe com um método que já existe em outra classe. Então vc "pega emprestado" aquele método para construir o método da nova classe usando o Reflect.aplly e passando o this do novo método.
+
+Reflect.apply(Aviao.prototype.voa, this, []);
 
 
+Um detalhe: foi necessário fazer Aviao.prototype.voa porque métodos criados usando ES6 são adicionados no prototype. Qualquer método adicionado em prototype estará disponível para todas as instâncias.
 
+
+============= PADRÃO DE PROJETO : Observer
+
+Usamos o padrão de projeto Observer sempre que queremos notificar partes do sistema interessadas quando um evento importante for disparado em nosso sistema.
+
+No contexto da nossa aplicação, entendemos um evento como o ato de adicionar ou esvaziar nossa lista de negociações. É a view que está interessada em observar esse evento e tomar uma ação, no caso, se atualizar com base no estado mais atual do modelo.
+
+============ PADRÃO DE PROJETO : Proxy
+
+Onde eu tenho um "mentiroso". Um objeto terceiro que imita o objeto real, mas consegue chamar funções ANTES de chamar as funções do objeto real.É por ele que eu vou chamar o meu objeto ou função. 
+
+
+No ES6 já tem isso. Basta instanciar a classe Proxy(quemEuQueroEncapsular, {armadilhas})
+
+let negociacaoProxy = new Proxy(negociacao)
 
 
 
