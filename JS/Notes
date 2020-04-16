@@ -68,7 +68,7 @@ titulo.addEventListener("click", function (){
     console.log("olha só, posso chamar uma função anonima")
 });
 
-===============FORMULÁRIOS
+===============FORMULÁRIOS BOTÃO
 
 - botao.addEventListener ("click", function(event){
 	event.preventDefault();
@@ -100,6 +100,8 @@ ou para que o foco do meu cursor VOLTE para um lugar APÓS uma submissão:
 campos.focus();
 
 lógico, isso após eu adicionar o evento de submit.
+
+Para evitar problemas de submit com o botão do formulário (button) podemos usar um span com a classe btn do bootstrap, assim fica o botão sem o defaut do botão do form.
 
 =================funções
 
@@ -708,8 +710,30 @@ Onde eu tenho um "mentiroso". Um objeto terceiro que imita o objeto real, mas co
 
 No ES6 já tem isso. Basta instanciar a classe Proxy(quemEuQueroEncapsular, {armadilhas})
 
-let negociacaoProxy = new Proxy(negociacao)
+let negociacaoProxy = new Proxy(negociacao, {})
 
+na armadilha, eu faço uma função que recebe target ((objeto que eu quero usar), prop ((propriedade)) e receiver ((referência ao próprio proxy))
+
+assim:
+
+let negociacaoProxy = new Proxy(negociacao, {
+
+	get: function(target, prop, receiver) {
+		console.log(`a propriedade "${prop}" foi interceptada`)
+		return Reflect.get(target, prop, receiver);
+});
+
+	console.log(negociacao.quantidade);
+	console.log(negociacao.valor);
+
+-------- armadilha é chamado assim pq no original é: TRAP;
+as armadilhas podem ser de 
+get:
+set:
+
+pra buscar ou atribuir valor a alguma propriedade.
+quando for get, a função tem que ter target, prop e receiver.
+quando for set, tem que ter target, prop, value e receiver.
 
 
 
