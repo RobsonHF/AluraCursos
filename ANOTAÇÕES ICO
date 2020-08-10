@@ -1,0 +1,1045 @@
+========== PROXY icolabora
+
+
+
+proxy.icolabora.com.br 8080
+proxy.icolabora.com.br 8080
+
+localhost, 127.0.0.0/8, ::1
+
+
+HTTP::proxy "http://proxy.icolabora.com.br:8080";
+    FTP::proxy "http://proxy.icolabora.com.br:8080";
+
+
+============ PARA CRIAR CARGAS
+
+- terminal
+acessar o oidev
+192.168.0.7 OU MELHOR
+ssh robson.ferreira@oidev.icolabora.com.br
+e colocar a senha 123mudar@
+
+
+===================EM ODC OPERAÇÃO:
+robson.ferreira@10.151.7.210
+mesma senha
+
+============================
+
+//////// PASTA ERRADA => cd /opt/turbina/volumes/gti2-mid-anatel/states
+
+->>>>> a CERTA é essa de baixo
+cd /opt/volumes/gti2/mid-anatel/states/
+
+ll (LISTA TODOS OS ARQUIVOS
+
+ver qual é o arquivo mais recente pela hora e dia
+
+vai copiar o arquivo mais recente, SÓ O NOME. Começa no 2020 e vai até .hist
+
+abre outro terminal
+
+cd Documents
+
+scp robson.ferreira@oidev.icolabora.com.br:/opt/volumes/gti2/mid-anatel/states/COLARONOMEDOARQUIVOCOPIADOAQUI NOMEDOARQUIVODNV
+
+scp alex.bento@10.151.7.210:/opt/volumes/gti2/mid-anatel/states/2020-05-26T18-10-13__1590516613351.hist 2020-05-26T18-10-13__1590516613351.hist
+
+(vai ficar com o final .hist)
+
+tem um espaço ali entre os dois nomes de arquivos
+
+- isso faz uma cópia do arquivo no servidor no meu local
+
+
+
+- ABRIR NO VISUAL CODE
+
+selecionar a linha 12 e 13 -> 
+dataHoraAbertura
+prazoRespostaAnatel
+
+é a data que foi feito para ser respondido. Quando ele é encerrado, ele para de vir no turbina porque não adianta mais responder.
+
+
+- desce na última linha
+
+- ver a última id (identificador). Só posso adicionar coisas DEPOIS DELA.
+
+Posso copiar e colar o objeto inteiro. Tem que alterar o protocolo e o identificador. O resto pode ser igual. 
+
+
+
+mudar o nome do final do arquivo (o número) antes de .hist
+
+
+
+
+
+Eu posso adicionar ids novas EM BAIXO DA ÚLTIMA. Altero o nome dele pra um número a mais. Depois de alterar o nome, alterar a extensão dele de .HIST para .LOTE
+
+.lote
+
+Colo esse arquivo lá no servidor, naquela pasta /opt/turbina/volumes/gti2-mid-anatel/states 
+
+scp NOMEDOARQUIVO.lote robson.ferreira@oidev.icolabora.com.br:~/    (faço isso na minha maquina)
+
+depois de copiar o arquivo. Ele vai aparecer na home do oidev
+
+ai eu rodo o comando:
+
+sudo cp ~/nomedoarquivo.lote /opt/volumes/gti2/mid-anatel/states/nomedoarquivo.lote
+
+cd /opt/volumes/gti2/mid-anatel/states/
+
+dar ll dnv na states e ver se está .hist e não mais como .lote
+
+------ pronto, agora as novas cargas estão no servidor.
+
+Agora o próximo passo é fazer com que as novas cargas passem pelo timer de modo forçado. para isso abrir o console no turbina e enviar as mensagens:
+
+$.post("api/jobs/9999999999")
+
+trocando o 99999 pelo número da id para cada id nova.
+
+para saber direitinho as IDs que estão presas no timer, fazer a query:
+
+select *
+from ACT_RU_JOB
+where HANDLER_CFG_ = 'timer_carga';
+
+--- pronto, agora as ids já passaram pelo timer e estão ativas no turbina, já podem ser pegas por alguém 
+
+
+=========== CARGA EM FALE CONOSCO
+
+No banco de OP:
+SELECT
+    I.PROC_INST_ID_
+FROM ACT_HI_PROCINST I
+INNER JOIN ACT_RE_PROCDEF PD ON PD.ID_ = I.PROC_DEF_ID_ AND PD.KEY_ = 'fale_conosco_criar_processos'
+ORDER BY I.START_TIME_ DESC;
+
+pegar uma id, ir no processinstance dela e pegar o arquivo na variável.
+
+Dentro do turbina DEV: 
+- Clicar em iniciar processos
+- buscar por fale conosco - Criar processos
+- Selecionar o arquivo do excel que vc fez anteriormente
+- depois valida a criação do processos
+
+
+==============RANCHER DOCKER
+quando a carga não estiver transformando em .hist, ver isso no rancher.
+
+ver primeiro:
+gti2-mysql
+gti2-rabbitmq
+gti2-solicitacao
+ 
+Mover IDs da DLX pra gti-turbina
+ 
+startar ou restartar o mid-anatel
+
+se não der, ver:
+
+gti2-mid-anatel 
+cons ana2repo
+cons repo2turb
+solicitação
+restart gti-mysql, rabbit
+mover as IDs da DLX pra normal
+
+
+esse é o que transforma o arquivo .lote para .hist. Ele eu tenho que clicar e clicar em PLAY (não em restart) ele tem que ficar running
+
+
+======DOCKER
+
+para buildar uma imagem:
+
+- Entra no code.icolabora
+- entra no docker que vc quiser
+- dá um git clone no seu pc
+- altera o que vc quiser
+- não esquece de alterar a versão
+
+- builda a imagem:
+---- sudo docker build -t docker.icolabora.com.br/(((NOME DA PASTA)))valida-dia-util:(((tag))dev .
+------ o que vem depois dos dois pontos é a TAG que vai estar marcada no docker
+
+------ subir no docker:
+--------sudo docker push docker.icolabora.com.br/(((nomedopacote)))valida-dia-util:(((tag)))dev
+
+- confere no docker.icolabora se sua imagem subiu mesmo com uma nova tag
+- entra no rancher e vai no docker correspondente
+- clica em upgrade e coloca a nova versão que vc fez
+- espera dar run
+
+
+=========== CRIAR CARGA SNIPER:
+
+
+=============== CALCULAR SLA
+- processo calcular datas
+- WIKi: CalculateDate
+- - solução calcular datas
+
+
+================= QUERYS DATASTREAM 
+
+- Usar o vartype pode fazer ela ficar mais rápida. Se coloca depois do inner join.
+
+
+
+====informações sobre o turnbina e processos====
+
+data streams é onde fica o sql
+
+turblet é onde fica o link com o dashboard com o sql (ignora o teste visão por área)
+
+solução por area - dashboard
+analise crédito
+
+- enableRefresh é um botão pra dar atualização automática no dashboard mas não tá funcionando. Ver o pq não tá funcionando. Talvez seja por causa do model.
+
++ tabletools é uma biblioteca que o turbnia usa mas existe na net. 
+
+
+
+====== gti2
+
+
+
+
+pra cada grupo de 3 cartinhas, é uma fila vai aparecer no rabbit
+
+DOCKER:
+-midi-anatel
+-gti2-cons-ana2repo
+-gti2-repo2turb
+- gti-solicitacao
+
+
+
+============= RABBITMQ
+
+as senhas são sempre guest guest
+Para entrar no rabbit, pegar o IP externo do servidor da oi que pode ser obtido entrando no servidor no terminal (thor). 
+- cola no navegador e em seguida coloca : e o número da porta
+- para obter o numero da porta, ir no rancher e procurar a pora desejada. Por exemplo. no caso queremos o rabbitmqturbina. Lá vai aparecer duas portas ao lado da image, a da esquerda é a interna que só é usada dentro do ambiente do rancher, e a segunda é a externa que pode ser usada fora do rancher, pegue a segunda.
+
+Ao entrar, pronto, é o ambiente do rabbit, guest gueste e gg.
+
+
+
+
+==========SCROLL AUTOMÁTICO
+
+----do jeito chumbado
+
+$('html,#turbilet gs-w').animate({ scrollTop: 4400 }, 'slow');
+
+----do jeito por elemento
+
+SmoothScrollTo(".tabela_detalhes", 1000);
+
+code:
+    function SmoothScrollTo(id_or_Name, timelength){
+    var timelength = timelength || 1000;
+    $('html, body').animate({
+        scrollTop: $(id_or_Name).offset().top-70
+    }, timelength, function(){
+        window.location.hash = id_or_Name;
+    });
+}
+
+----do jeito do Gui
+
+const element = document.getElementById(id)
+      const yOffset = -60
+      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset
+      window.scrollTo({
+        top: y,
+        behavior: 'smooth'
+      })
+
+=======TESTE AUTOMATIZADOS
+- usando o pupiteer
+
+
+========== Usando componentes
+componentes servem para criar funções de escopo global. Basta chamar os componentes por require onde for usar.
+
+Após criar o componente em si, montar o corpo do JS como:
+ 
+delete window.formUtils;
+ 
+var view = this;
+var globals = require("globals");
+aqui você pode passar mais variáveis (como timeZone)
+
+var formUtils = {
+    __view: view,
+    aqui vão todas as funções que você quer no escopo geral seguindo o exemplo:
+    
+    nomeDaFunção: function(parametro) {
+    }
+};
+
+// cria a variável na window para passar para um contexto global
+window.formUtils = formUtils;
+ 
+Para importar esse componente em algum form:
+ 
+  // Carregando componente
+  var Component = require("models/Component");
+ 
+  var my_comp = new Component({
+             solutionKey: "chave_da_solução",
+             componentKey: "chave_do_envolvimento",
+             view: view
+   });
+ 
+  // Chamando função do componente
+  $.when(my_comp.fetch()).done(function(compData){
+               formUtils.nomeDaFunção(parâmetro);
+  });
+
+Esser require serve tb pra pedir não só componentes mas tb outros objetos de programação dentro do turbina.
+
+================ CRIAR ICONE DE CARREGAMENTO
+
+<style style="">     #spin i {         font-size: 70px;      } </style>
+
+<div class="row-fluid">     <div class="span12" id="list-of-users"><center><h1 id="spin"><i class="fa fa-spinner fa-spin"></i></h1></center></div> </div>
+
+depois alterar o display ou usar hide() e show().
+
+===================OFF.CLICK() TIRAR CLICK DESABILITAR
+
+$(".white-back").off('click');
+
+retira qualquer função que esteja marcada pra click nessa classe.
+
+
+============== ACTIVITY BANCO
+
+vantagem é que os dados são em tempo real. Tudo que mudo no turbina já vai instantaneamente para o activity.
+
+No 3fm não, tem uma lag, por causa do rabbit, e pans. pode demorar uns 3min.
+
+Depende do dash, é melhor fazer no activity por conta desse time. Só qndo fica mto pesado, vai pra 3mf pq ela é mais leve, por ter índice e tals.
+
+ACT = activity
+
+HI = tudo que é histórico. todas as tabelas que tiver isso, é histórico, ou seja. vai ter abertas e fechadas.
+
+pra pegar só a aberta, colocar end_time_ is null
+
+ACT_RU = ontime, só pega casos abertos. Mas é uma tabela pesada, por isso é pouco usada. Melhor pegar o HI e colocar o WHERE END_TIME_ IS NULL.
+
+PROCINST = process instance. 
+
+PROCDEF = process definition (atendimento, envolvimento) são os diagramas beleza.
+
+TASKINST = tarefas
+
+distinct = pega todos os valores distintos. Se repete um valor, ele ignora. 
+
+ACT_HI_VARINST - IDS FECHADAS
+ACT_RU_VARIABLE - IDS ABERTAS
+
+
+
+
+============== REDUCE()
+
+
+- função reduce()
+parece o map. a diferença da usabilidade é quase nenhuma. mas tem semantica diferente pra coisas diferentes.
+
+map: retorna 1 objeto para cada 1 objeto dentro do array. retorna o dado, não o array.
+
+FLATMAP(): Retorna um dos campos de um json de acordo com a chave passada.
+json.flatMap("v=>v.valorCampo")
+
+reduce: retorna 1 array que passa pelo processamento várias vezes. Ele vai sendo incrementado no mesmo campo. 
+
+
+============================= COMO FUNCIONA O ATENDIMENTO RECLAMAÇÕES ANATEL
+
+- A cada 4 horas é feito um novo lote com as reclamações da anatel que são migradas para o turbina.
+- Essas reclamações possuem 10 dias corridos para serem resolvidas.
+- Esses 10 dias são contabilizados naqueles dashs que tem D0 a D10.
+- Caso eles não tratem, a ID é interrompida no turbina, sobe sem resposta pra anatel e ai o cliente pode avaliar mal por não ter respondido e a OI pode tomar multa da anatel por isso.
+- O jotinha criou um serviço que transforma os dias corridos da anatel em dias úteis pra operador. (pra gerencia ele continua vendo em dias corridos)
+- Backlog é vencida, mas não vai mais ter backlog.
+- Como o do operador tem prazo em dias úteis, pode ser que seja um ou dois dias a menos do que os 10 corridos. Quando o processo entra e vence em 9 dias corridos ele já entra direto no D1.
+- Se a resposta for ruim e o cliente quiser reabrir a reclamação. Agora o operador só terá 3 dias úteis pra responder. Ou seja, já abriria no D7 direto.
+- Quando a ID é tratada, o cliente tem até 10 dias pra reabrir a reclamação ou reclamar.
+
+
+BTCC, LIC são EPS => terceirizado, de call center. Eles não podem ficar vendo todos os dados da OI, e vice-versa.
+
+==========BELONGS_TO
+Semper que eu for precisar de um acesso autorizado, de pertencer a algum grupo específico, uso ele. 
+
+globals.session.get('user').checkAccess("BELONGS_TO...
+
+
+==========globals.session = sessão do usuário
+
+
+
+
+
+=======PROMESI PROMESSAS -> PESQUISAR####
+
+promesi.all(promeses).then(() => {
+
+tudo que tem aqui dentro tem que ser executado prmeiro. 
+
+promeses servem para colocar uma prioridade, pra quebrar a assincronia do js. 
+
+await, then, done -> são tipos de promessas
+
+
+============= PRA COLOCAR AS DATAS
+var dataAtual = moment();
+dataAtual.add(1, 'days').format('DD/MM');;
+
+
+=================== URL CHUMBADA? URL DINAMICA EM DEV (pra script task);
+
+- Como fazer com que o código tenha url dinamico e não chumbado.
+
+- rest webservice (chama internamente, ai não barra chamar direto do turbina alguams api)
+
+- ao retirar o chumbo, deu erro de permissão. pq ele faz uma verificação interna de qual autenticação e usuário que vc vai usar (pra ver se é realmente alguém do turbina ou de fora)
+
+- pra isso, configura uma variável de ambiente no conteiner e manda no nosso código pra chamar.
+
+- para pegar uma variável de ambiente:
+
+-- no rancher, tem o turbina operacional. lá em baixo, dá pra colocar vairável de ambiente: add envirorment variable. Ai dá pra usar qqr uma dessas
+
+-- importa lá no código:
+var System = Java.type('java.lang.System');
+var env = System.getenv();
+var URLPREFIX = env.get('URLPREFIX');
+var  GTIPWD = env.get('GTIPWD');
+
+======================= RANCHER DE DEV É PRETO E O RANCHER PROD É BRANCO. Só pra não confundir.
+
+
+======================== CONEXÃO ENTRE DUAS SOLUÇÕES CONECTAR SOLUÇÃO
+
+Boto esse código na solução que está chamando a outra.
+
+No HTML: criar uma div pra ser chamada, nesse caso foi a div com id: div_envio_email
+
+No js:
+
+var Form = require('models/Form');
+var FormView = require('views/forms/FormView');
+
+
+$.get("api/solutions/envio_email/lastdeploymentbykey").done(function (response) {
+
+    var deploymentId = response.deploymentId;
+
+    var form = new Form({
+        formKeys: 'form_enviar_email',
+        deploymentId: deploymentId,
+        data: view.model.get('data') || {}
+    });
+
+    return $.when.apply(null, form.loadResources()).then(function () {
+
+        var formView = new FormView({
+            model: form
+        });
+
+        formView.main = view;
+        formView.renderWithTrigger();
+
+        formView.$el.appendTo($('#div_envio_email'));
+
+        return formView;
+    });
+});
+
+=================================DOCKER
+
+DOCKER FILE -> instruções para que meu código funcione onde quer que meu conteiner esteja.
+
+
+======================================NODE
+
+node alpine tem tudo que o node precisa pra funcionar.
+
+O Rancher é o gerenciador de docker. 
+
+dentro do rancher, pra fazer o upgrade é só trocar o número da versão ali no serviço do rancher.
+
+o upgrade baixa a imagem e dá um start no projeto. 
+
+
+========================== CUCUMBER TESTE AUTOMATIZADO PUPPETEER
+
+no code.icolabora buscar por oi-acceptance
+
+
+- Cucumber foi feito pra alguém que não sabe programar poder fazer as instruções.
+
+
+
+================================= QUASAR NODE TURBINA 2.5 FEATHERS
+
+eu vou usar o node e o vue juntos.
+
+- quasar.dev/layout/gallery -> para copiar layouts
+- fazer tudo no VScode
+- extensão ESLINT serve pra mostrar os erros
+- tem um lance de pug, que tem que converter pra typescript
+- npn i @elastic/elasticsearch
+-> o npn ou yarn tem a função de instalar pacotes de javascript no meu projeto, para que eu possa usar o moment, ou elasticsearch etc. Pra instalar isso, preciso mandar um npn i nome do bang
+- npn i (sozinho, instala a última versão das dependencias que eu já tenho)
+- node modules são todas as bibliotecas qeu são externas ao meu projeto. Preciso fazer os requires disso. 
+
+
+- feathers 
+- .eslintignore -> é um arquivo em que vc coloca a source de um código em .js que vai ignorar todos os erros.
+
+ 
+
+======================== PARA CRIAR UMA DASHBOARD CRIAÇÃO
+
+- quando eu for precisar de uma requisição com mtos dados, eu preciso usar o CHUNK, procurar no serch in files pra usar como modelo.
+
+- colocar no começo:
+	var view = this;
+	var timeZone = "America/Sao_Paulo";
+	this.model.set("enableRefresh", true);
+
+- tem que fazer um require do DataStream (pegar no serach in files)
+
+
+========================= PERFILAMENTO
+
+é um arquivo FIXO criado e elaborado pela OI de perguntas e respostas que devem ser preenchidas pelo operador a cada resolução de reclamação para que a OI tenha na base uma ÁRVORE com pesos diferentes em cada ramificação, para saber onde a empresa terá que atacar para melhorar.
+
+
+========================= ASSYNC FUNCTION
+função assíncrona.
+
+Pode ser substituida por um .then() no final de qqr coisa.
+
+
+
+============================ ENGINEX
+
+o enginex é uma via de mão dupla, um meio de fazer o intermediário entre o requisitante de uma requisição e algum container ou servidor. 
+
+- ele é um serviço de gerenciamento de requisições.
+
+
+
+========================= QUANDO UM ITEM FICA PRESO NA FILA
+- entrar no rancher, pausar a fila
+- entrar na fila, colocar o get messages
+- ver qual mensagem tá dando erro
+- mudar o ack message e colocar pra false.
+- ele consome e tira da fila
+
+
+====================DOCKER
+-- docker ps -a
+mostra os conteiners ativos e inativos (sem o -a, só ativos);
+
+ver o container id 
+
+docker ps | grep 'id'
+
+
+-- docker logs -f --tail 5000 id (f mostra só os ativos em tempo real, tail mostra apenas os 100 ultimos caracteres) 
+sem o f e tail, mostra todo o log
+
+
+======================= grep -i -r ///// ou search in files
+serve para procurar partes de código em outros lugares.
+
+- o grep usa no terminal e o search in files usa no cs code
+
+grep. o 
+-i quer dizer case insensitive
+-r é pra fazer recursivo 
+
+
+
+
+========= PESQUISAR O QUE ESTUDAR
+- map, filter
+- array
+- jquery
+- moment
+- lodash
+- banco -> 3fn -> inner join, entender a tabela, select. mexer com índice (criar etc)
+- quazar
+
+
+
+
+
+
+
+FTP: é um arquivo do anatel de uma exportação, é bem grande. Ficou maior e começou a demorar demais e ficou lento. Divididmos em duas bases -> incremental (exporta de 1h em 1h os de um dia ou atual) e consolidado (é a base total só que roda uma vez na madrugada, mostra sempre do dia anterior).
+
+
+
+
+- Solução resolver
+- tratamento de reclamação
+- Arquivo para enviar para anatel (deixar só um arquivo)
+- quando vc salva o formulário no atendimento, o turbina dá problema, tá salvando. Precisa achar e tratar. (na action bar tb tá tendo)
+- 
+
+
+==== PARA FAZER - ESSA SPRINT #
+
+
+#Issue 982
+- coluna a mais -> colocar
+- coluna de status -> se é interrompido, seta status de interrompido, no arquivo da madrugada (o total) e o que tá com a coluna interrompido é o (de uma em uma hora) incremental. Tem que ver a lógica pra ficar igual os dois. 
+
+#
+- colocar aberto, fechado e porcentagem.
+
+
+## Envio de email automático - 7 partes
+# formulário 1
+- não vai ter o título. Só vai ter modelos.
+- centralizar os elementos
+- vai poder anexar arquivo ou não: PDF OU ZIP (zip não tava) e DOCX de tamanho máximo 8MB
+- Colocar um campo a mais chamado assunto.
+- GRUPO_ENVIAR_EMAIL_LIVRE -> que o operador pode enviar o e-mail do jeito que ele quiser. Cadastra um modelo (no crud) LIVRE. Só conseguirá editar o e-mail nesse e-mail livre. E pode mandar anexo tb nesse caso.
+- criar hmtl básico do e-mail para os modelos. 
+@ 
+
+#data table de e-mail do operador na tarefa de resolver 4
+- precisa trazer os e-mails que o operador enviou e inclusive os e-mails que o cliente respondeu
+- antes exibia uma linha por e-mail por ordem de data e horário, 
+- ver/criar modal pra abrir o e-mail ao clicar na linha
+- os e-mails devem aparecer para todos os ids de mesmo protocolo. novas e reabertas;
+
+#processo de envio de email 3-4
+- criar caixa de e-mail para testes (pedir pro vinicius)
+- não deve haver limitação podendo o cliente responder mais de uma vez o e-mail
+- o turbina deve aguardar resposta para todos os e-mails enviados sejam eles o primeiro ou demais envios.
+
+API com tabela no activity
+colunas: texto , email, assunto, hash;
+
+pra saber se ele for lido ou não, tem que fazer uma requisição;
+
+processo: processo -> rabbit -> send-mail-consumer -> serviço de leitura de emails
+
+
+- não vai mais ter lógica de ficar aguardando. Pq não vai ser o processo, vai ser o servicinho
+@ tem que ter o identificador tag imagem. Tem que pegar o email e colocar a tag image com a url específica que a gnte vai ter que colocar. tipo um reply url, para o turbina.
+
+# dashboard visão geral de e-mails - emails painel 2
+- colocar data de criação do e-mail no turbina
+
+
+#crud/serviço:
+- criar um crud dos books de e-mails
+- cadastrar tipo de modelo de e=mail, assunto, texto e se pode enviar anexo ou não
+- ler emails recebidos e armazenar em uma base de dados
+- buscar dados de base de email
+
+- ver exemplo do GOV (GOB) que já faz algo do tipo 
+
+# teste automatizado - opcional 6
+- envio de e-mail
+
+#relay de emails - não vamos fazer
+
+
+- TAG IMAGE, o que é?
+
+POC é um demo - > um sistema funcional pra teste. 
+
+
+================ REUNIÃO
+
+
+- precisa fazer um roteiro de teste na issue quando acabar.
+
+- procedimento subida na issue tb (corrigir a questão da url chumbada)
+
+
+================ 
+
+- formulário tá no atendimento, tem que pegar ele e trazer pra solução nova que a gente vai criar
+
+- começar com o seviço e crud
+
+- grupo enviar email tem que estar no grupo
+
+- pegar de atendimento o botão, o modal
+
+- criar uma nova solução para envio de email.
+
+- unica coisa pra manter é o fe que é o formulário de tarefa de envio de email
+
+
+======================== ONDE ESTOU MEXENDO
+
+solução: Envio de Email criada
+
+
+- fazer uma função que retorna os modelos de email
+- requisição que utiliza um datastream
+- usar dados diretos da 3fn -> traz qqr dado, contanto que tenha os campos que eu necessito. Traz n campos daquela tabela (uma qqr) e altear o nome dos campos.
+- quais sãos as variáveis 
+- procurar a importação do turbilet
+
+
+================= REUNIÃO COM CRIS E WENDEL EMERGENCIAL ORÇAMENTO OI PAGAMENTO
+
+- vamos ver melhor o turbina 2.5
+
+cronograma 11-05-2020
+10 dias pra terminar a primeira parte 25/05/20
+
+
+
+============== ANOTAÇÕES DO DIA
+- Chamado com carlos
+- não deixar validar/concluir antes de o cara tentar fazer uma ligação um contato com o cara. isso na resolver atendimento. 
+- tirar a validação que está 1 e colocar validação pela data.
+
+
+1002
+- salvar cada vez que o usuário tentou ligar
+- trocar validação de obrigatório ter um contato, para "obrigatório ter um contato após a data da abertura do chamado" exceto que seja a data limite;
+- de alguma forma a regra de "obrigatório ter um contato após a data da abertura do chamado" deve poder ser ligada ou desligada
+- criar um grupo (NÃO_VALIDAR_CONTATO) que pode encerrar chamada sem nenhum contato;
+- alerta via e-mail caso algum chamado seja encerrao no dia de vencimento e não haja nenhuma tentativa de contato;
+
+
+- se o botão tá ligado, valida. Se não, valida nada.
+- se estiver no grupo NÃO VALIDAR CONTATO, valida, senão, não valida.
+
+
+
+- colocar nas custom properties do grupo NÃO_VALIDAR_CONTATO
+- pegar do grupo pra ver se a variável tá ativa -> com um parametro do grupo certo
+
+- escrever tudo sobre o email na issue -> que tá criando outro serviço de email e tal
+
+
+- cria fila excenge, dar bind
+- copiar fila do container e criar usuário
+colocar o novo email
+
+- criar usuário no turbina send_mail_consumer
+
+
+- alterar no formulário o custom properties do grupo
+
+
+
+criar uma nova variável e pegar a data atual de qndo ele clicar em concluir sem ligações.
+
+
+
+
+ISSUES JIRA
+- 
+
+
+criar cargas:
+
+- id não pertencente a eps BTCC
+- id pertencent a eps BTCC / que tenha data limite HOJE
+- id pertencent a eps BTCC / que tenha data limite qualquer dia diferente de HOJE
+
+- id não pertencente a eps BTCC
+- id pertencent a eps BTCC / que tenha data limite HOJE
+- id pertencent a eps BTCC / que tenha data limite qualquer dia diferente de HOJE
+
+
+
+- fazer insert de cargas no oi.tb_d_avarage
+insert into cargas_oi.tb_d_average (cpfCnpj, fileType, data_criacao, createdAt, updatedAt)
+values ('12345678909', 'none', NOW(), now(), now());;
+
+
+primeiro value: cpf.
+
+
+=====================
+
+
+- bloqueio dos botões
+- só validar a ligação qndo for status encerrar
+- 
+
+
+- fazer teste com o duplo clique de concluir
+
+- alterar os emails na script task e NÃO ESQUECER DE VOLTAR
+- mudar no rancher pra oidev
+
+
+====TESTES NO DUPLO CLIQUE:
+- sem tentativa de contato: deu erro e o botão desabilitou pra sempre.
+
+
+
+===============
+
+- instalar postman (pra requisições)
+-- sempre que for fazer uma api, requisição, tem que criar um token a partir de uma chave, que expira.
+
+
+- WinSCP (cargas e servidor)
+- 
+
+
+
+GTI:
+
+- mid-anatel: consome as cargas novas e transforma arquivo em .hist.
+
+- ana2repo: vai ler o arquivo .hist  e enviar solicitação pra salvar na base.
+
+- cons-repo2turb: encarregado de mandar essas ids pro turbina.
+
+- 
+
+
+==================
+- qndo subia os anexos, subia na primeira vez normal.
+- só que qndo é reabertura, o anexo está em outro processinstance, e o processinstance atual da reabertura não tinha anexo, e dava erro na fila.
+- jotinha fez uma solução de consulta de anexo por execution que é o pai dos processes
+- todas as variáveis são guardadas no processo pai
+- quando a reabertura é enviada pro pai, procura anexos na abertura por meio de uma query
+- 
+
+solução: anatel consumidor
+processos:
+- tratar pendencia anatel consumidor -> início do processo
+- anatel consumidor anatel consumidor
+
+pode abrir mais
+
+
+precisa testar, mas o jotinha já fez
+- vai precisar ligar o gti no dev pra tentar enviar a resposta pra anatel
+-- essas ids do marcus serão ignoradas pela anatel
+
+
+
+
+================== MOVER PARA DE HOMEM
+- Mover migrar todas as ids:
+-- entra na solução PROCEDIMENTOS
+-- lá em baixo vai ter MOVER PARA DE HOMEM
+-- muda a versão, coloque a mais recente
+-- clique em pré visualizar e vai executando de mil em mil olhando o network pra saber se já pegou tudo
+-- Assim, todas as ids de prod vão ser movidas para a última versão.
+
+Pra saber a versão, olhar a versão de uma id movida pouco antes:
+
+SELECT PD.VERSION_
+FROM ACT_HI_PROCINST I 
+INNER JOIN ACT_RE_PROCDEF PD
+ON PD.ID_ = I.PROC_DEF_ID_ 
+AND PD.KEY_ = "atendimento"
+-- WHERE I.ID_ = "881389817"
+ORDER BY I.START_TIME_ DESC
+
+=========== IMPLANTAR SOLUÇÃO EM PROD
+- toda vez que eu eu alterar uma solução em prod, devo alterar também em DEV E colocar no histórico das duas as tags com razão da alteração (número do chamado etc)
+
+
+
+====== TESTE 954
+teste 1
+origem: cliente OCD
+eps: BTCC
+status: Cliente deseja atendimento
+Resolvido Online
+Protocolo: 1548
+completei todos os campos de perfilamento
+Protocolo do cadastro: 2020061200001
+Perfilamento OK na variável
+
+
+Teste 2: processo idêntico ao anterior: criou normalmente e gerou outro protocolo: 2020061200002
+perfilamento OK na variável
+
+540461046104
+
+Teste 3:
+
+
+- Status do Atendimento funcionando corretamente (e validando caso não esteja preenchido)
+
+
+PROBLEMAS:
+- EPS ORIGEM tem apenas opções para Origem da Chamada Cliente ODC
+- Ao escrever o Protocolo, dá pra colocar quantos números quiser, não tem máscara.
+- No perfilamento, a partir do select "Qual principal motivo reclamado" não há mais opções nos selects, apenas "Não se aplica".
+- Deu pra criar um segundo processo idêntico ao mesmo, com mesmo cpf e motivos de reclamação.
+
+
+
+
+===================
+Ver depois na 999:
+- acao/ condição no sniper ? tem reabertura?
+- elo?
+- produto (serviço) que ficou como selecionar no protocolo: 2020061100012
+
+
+
+============= MENSAGENS JSON MENSAGEM REQUISIÇÃO
+
+DISTRIBUIR DA FILA:
+só mandar no console em qqr lugar do turbina.
+
+ATENDIMENTO
+$.ajax({
+ type: "POST",
+ url: "/api/processinstances/226990889/messages/distribuir_processo"
+});
+
+
+SNIPER:
+$.ajax({
+ type: "POST",
+ url: "/api/processinstances/227604525/messages/distribuir_sniper_2"
+});
+
+====================
+
+olhar o gateway que é boolean e eu comparo string OK
+testar painel fila de processos sniper 
+
+==================MANUAIS
+1036654504 - cpf a
+1036672995 - cpf a
+1036673486 - cpf a
+1038492632 - cpf b
+1038498208 - cpf b
+1038621377 - cpf c
+1038671663 - cpf d
+1039202502 - cpf e
+1039508148 - cpf f
+
+
+===================AUTOMÁTICO
+
+1039153084 -> protocolo 202007158222450 -> finalizou corretamente. Mesmo cpf, telefone, não tem anexo e é mais recente.
+
+1039243844 -> protocolo 202007158231959 -> finalizou corretamente. Mesmo cpf, telefone, não tem anexo e é mais recente.
+
+1040712794 -> protocolo 202007158358002 -> finalizou corretamente. Mesmo cpf, telefone (nenhum tem), não tem anexo e é o mais recente. 
+
+
+
+=================== DASHBOARD DE AGE AGINGS AGGINGS NOVA CARLOS
+
+só vou mexer nisso: OBJETO
+
+DATA é o conteúdo do código, são os processos.
+
+DataStream -> dssolution
+dskey
+
+dataFilter: é um filtro geral, quais são os filtros pelos quais passam as ids, todos os grupos passam por esse filtro.
+
+
+aging: vai lidar com TUDO referente aos agings
+- tem que ter um parse, período de dias (days), 
+
+drill down (filtros)
+method: onde vc coloca as funções
+
+totais: método próprio.
+
+
+fnRenderCalback: [async function ] (((só recebe funções assíncronas. Todas as funções novas são colocadas aqui.
+
+ajuste do filtro de data
+
+
+SEMPRE DEIXAR NOTAS na primeira linha de código +++
+
+
+=======================================
+
+PA - SUPORTE
+- automação pa virtual oi-1012 (ver os arquivos, mailing, mais novo.
+- se o status(ação turbina) for distribuir para grupo prioritário, distribuir para o grupo presente no última coluna do xls
+
+- anotação turbina é pra ser tipo um histórico.
+
+- fazeer carga dos caras pra cair na regra de PA virtual (alteração turbina)
+
+- caras diferentes e caras da regra, ver o que acontece com cada um.
+
+- fazer o arquivo com as ids que criei, ver com o luan onde eu mando o arquivo. 
+
+- só é pra entrar na PA UMA ÚNICA VEZ, dps que redistribuir, nunca mais deve ir pra PA dnv (variável PA virtual)
+
+- tomar cuidado com eps
+
+- os inelegíveis são pra ir pro tratamento humano.
+
+
+- configurar FTP pra jogar o arquivo de teste
+
+
+
+
+
+
+
+======================== CONFIGURAR BUILD DE IMAGEM NO RANCHER 
+- ir em oidev
+- add service
+- coloca o nome sempre com oidev.icolabora.com.br/ alguma coisa
+- networking = bridge
+= scheduling = run all containers on specific, colocar o da oidev
+
+
+
+
+ddd real
+data status
+nome_real => nomeconsumidor
+envolvimento => area_executora
+
+user task no pai
+user task no atendimento antes do fim
+
+
+202008045645111
+
+
+colocar no html pra cada um.
+
+<option data-tipo-formulario=""
+value="Chamada Repetida adfasdf"
+
+
+colocar uma variável, pegando o valor do valorCampo, colocar pra setar toda vez que ficar change.
+
+

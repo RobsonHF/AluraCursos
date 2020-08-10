@@ -1,0 +1,154 @@
+- infordata: outra consultoria que também faz robôs.
+- horário: 9h-18h é o horário do banco e é o horário que eu vou ter que ficar disponível.
+- PDD: documentação do robô, recebo antes de produzir.
+- Emerson (faz tudo, tipo hugo), Will (conhece uipath), Lucas (acompanha a homologação e passagem pro ambiente de prod), Clara: são as pessoas do negócio
+- a produção de robôs está priorizando OPERAÇÃO, pra eliminar pessoas.
+
+
+
+
+
+
+
+- bluk add queue items 
+--- pega todo o data table e joga na fila do orchastrator
+
+
+
+
+======= ATIVIDADES UIPATH
+
+- -Get transition item (ele que pega os elementos da fila pra in progress. retorna um quer item no uipath e enumarable no orchastrator. Todos os items da fila)
+
+- Set transition status -> coloca se foi sucesso ou falha, e se é da aplicação ou business. qndo for regra de business, colocar uma razão que é uma string do pq do problema.
+
+- Get asset -> 
+- pesquisar o que é asset
+---- é tipo uma variável de ambiente: guarda credenciais e valores, informações que podem ser alteradas constantemente ou pra armazenar credenciais.
+
+- Get queue item -> pegar próximo da fila
+
+- launch  -> chama login
+
+- element exist -> verifica se tem um elemento na tela.
+
+- retry scope -> para tratar erros repetidamente
+
+========== WEB DRIVER
+-> https://chromedriver.chromium.org
+- fazer download da versão estável
+- coloca ele numa pasta dentro de C:
+- abre as variáveis de ambiente no menu iniciar
+- vai em PATH, cria um NOVO
+- copia e cola lá o caminho da pasta que vc criou em C:
+- dá ok.
+- agora abre o uipath dnv, vai em propriedades, vai em propriedades, 
+- communication method, escolher webdriver
+- hidden coloca como TRUE
+
+
+-> serve pra rodar robôs em background, podendo usar o pc pra outras coisas.
+
+
+===== criar tabela de dados = TABELA DE DADOS
+- build data table
+- filter data table
+- sort data table
+- remove duplicate rows
+
+
+=========== PACOTES
+Para ter algumas atividades e mexer em algumas funções, é necessário instalar pacotes correspondentes. 
+
+- UiPath.PDF.Activities por exemplo é o pacote para se mexer com pdfs
+
+
+====== READ PDF TEXT
+-> só lê textos selecionáveis, não imagens.
+-> Para ler imagens, há de usar a atividade Read PDF with OCR.
+---> Atividade MOTOR OCR: o melhor é o teseracto
+
+
+
+=================
+- Qual vai ser o critério de selecionar cartão no conductor?
+---- ativa o último cartão, verificando qual é o tipo, não reativa virtual ou global.
+- perguntar o motivo da reversão do cartão e se precisa colocar observação no conductor.
+---- "cartão reativado"
+- Filas na pag7 -> terei que criar?
+---- will deve criar, a gente pode criar em homologação
+- Simply para fraude?
+
+são 4 robôs, por mais que sejam parecidos acessam plataformas diferentes
+- quebrar captcha
+- integrar com APIs
+- acesssar diferentes sistemas
+- terei que me familiarizar com esses sistemas
+
+* Robô A:
+- Pega os CPFs do cliente.
+- Acessa o site da receita federeal
+- Se estiver com o STATUS REGULAR aliemta a fila FILA_REATIVACAO_DE_CONTAS_MATERA.
+- Se estiver com o status diferente de regular, alimenta a fila FILA_FINALIZADOR_ARQUITETURA_RPA.
+
+* Robô B:
+- Pega os itens da fila.
+- Acessa o MATERA.
+- Localiza o cliente.
+- Se a conta estiver desativada ele REATIVA CONTA e alimenta a fia FILA_REATIVACAO_DE_CONTAS_IRIS.
+- Senão ele seta uma BusinessException FILA_FINALIZADOR_ARQUITETURA_RPA.
+
+* Robô C:
+- Pega os itens da fila.
+- Acessa o IRIS.
+- Se conseguir acessar o Iris realiza o processo.
+- Senão quebra o robô?
+- Reativação com sucesso? manda para a fila FILA_REATIVACAO_DE_CONTAS_CONDUCTOR.
+-Senão, manda a fila FILA_FINALIZADOR_ARQUITETURA_RPA.
+
+* Robô D:
+- Pega os itens da fila.
+- Acessa o CONDUCTOR.
+- Como vai selecionar os CARTÕES na tela inicial da Conductor?
+- Efetua o processo de REATIVAÇÃO (PDD)
+- Reativado com sucesso? manda a fila FILA_FINALIZADOR_ARQUITETURA_RPA
+- Senão, manda a fila FILA_FINALIZADOR_ARQUITETURA_RPA
+
+
+
+-----------------------------
+- conta conductor: faz gestão de cartões
+- no começo do fluxo terão algumas verificaçoes a mais.
+- verificar se tem algum serviço que quebre captcha de imagem
+- usa o anti-captcha
+- incluir verificação de fraude no primeiro robô -> simply
+- acesso em homolog
+
+-----------------------------
+
+
+- CPF não encontrado: business exception
+- 12.15 robo b -> caso a conta seja diferente de desativada, lançar como business exception
+- 12.25 - robo d -> pedir ao claudio
+
+- get transition item 0> while (pegar da fila)
+- if... set transition status (seta se foi concluido ou não)
+- set transition progress (seta o estado dele personalizado)
+- pra mandar pra fila: orchastrator, add queue item (status new)
+- bulk add queue items -> pra mandar tabelas inteiras pra fila. 
+
+================================ NOVO ROBÔ
+
+-> API de normalização de cartões? me passem a documentação.
+
+============== requisitos:
+
+PRECISO DE:
+- acesso ao matera -> componente de login não existe ainda.
+- acesso e URL do iris
+- acesso e do conductor
+- git -> o victor não me responde.
+
+============== ROBO VAI
+- checa casos na fila
+- 

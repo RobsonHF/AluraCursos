@@ -124,6 +124,12 @@ var paciente = {
 
 ou seja, coloca-se as características desse objeto entre as chaves e entre as características apenas VÍRGULA. Também, para atribuir valor a uma característica do objeto, usa-se DOIS PONTOS.
 
+Todo objeto herda do objeto "Object" que tem algumas propriedades e métodos próprios. Por exemplo:
+
+.lenght = me dá a quantidade de caracteres.
+.hasOwnProprierty('propriedade') = dá um boolean se o meu objeto tem tal propriedade
+
+
 ======BOA PRÁTICA
 - quebrar o código gigante do meu site em vários arquivos .js de acordo com os serviços
 

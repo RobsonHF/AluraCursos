@@ -1,0 +1,48 @@
+
+roseli
+- apresentar pro projeto pra ver que tipo de robo tá vindo do cliente
+- conversando com o james
+- entrando a partir dessa semana
+- efetivação daqui 30 dias
+- criar um plano de crescimento profissional dentro da ico
+
+
+marcio oliveira
+
+
+orchastrator - orquestrador
+-> tem curso da universidade de uipath
+-> pra acessar o orquestrator é no site da uipath
+cloud.uipath
+
+assets -> guarda informação que podem ser alteradas posteriormente
+- machines: máquinas que estão no orquestrador
+- robots: os robos que vão acessar as máquinas
+
+basicamente vamos usar apenas os assets e queues
+colocar logs para acompanhar os passos que faz. Então os logs vão aparecendo na janela logs
+
+só joga na fila o conteúdo, não é o arquivo. 
+envia o texto.
+
+tem uma atividade chamada add queue item. 
+
+
+-> perguntar pro claudio sobre o orquestrador pessoal
+get asset
+queues
+
+
+
+- salesforce (vou usar nos robos) e é treta de entrar na segurança e monitorar erros
+- cobrar bastante, quando eu preciso de algo tem que ficar em cima.
+- eles vão dizer que precisam de menos tempo, digo pra falar com a roseli e que não vou fazer antes disso.
+- quando houver pendência, falar na daily com a roseli
+
+PDD - documento que vamos receber com descrição do processo que vamos automatizar.
+-> ver padrões de desenvolvimento.
+
+
+emerson - setor de operações do c6
+
+

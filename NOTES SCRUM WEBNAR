@@ -1,0 +1,229 @@
+ASPECTOS DO SCRUM
+- organização
+- justificativa de negócios
+- qualidade
+- mudança
+- risco
+
+
+FASES E PROCESSOS DO SCRUM
+- iniciar -> membros do time e PO identificados. Formar o time.
+- planejar e estimar
+- implementar
+- revisão e retrospectiva
+- release
+
+
+HISTÓRIA:
+- começou em times de software 1980 professores japoneses TAKEUCHI, NONAKA
+- abordagem inovadora do rugbi. Não realizar projeto cheio de transferencias, em que uma espera a outra e vão passando. Mas sim, em equipe. execução em equipe, holística.
+
+
+O QUE É SCRUM?
+framework agile.
+
+- O foco está nas pessoas, não nos processos.
+- Documentação mínima, apenas o necessário.
+- Processos Iterativo.
+- Planejamento ao longo do andamento do projeot.
+- Qualidade centrada no cliente
+- Equipe auto-organizada
+- gestão descentralizada
+- atualiza o backlog priorizado no produto
+- liderança colaborativa
+- Desempenho: valor de negócio
+- ROI (RSI) início e durante o projeto
+- envolvimento alto com o cliente.
+
+
+BENEFÍCIOS
+- adaptabilidade -> mudanças são bem vindas
+- melhoria contínua -> iterações garantem isso
+- entrega contínua de valor -> entregamos os maiores valhores possíveis
+- entrega antecipada de alto valor -> maiores valores, são priorizados primeiro
+- Ritmo sustentável -> não tão baixo, mas não tão alto. Como uma maratona
+- Processo de desenvolvimento eficiente -> gerenciamento de tempo e minimizam trabalho não essencial. 
+- motivação dos participantes. 
+- Resolução de problemas mais rápida
+- Time com várias competências multifucionais
+- Centrado no cliente, para alta colaboração e entrega de valor alto. Maior transparencia
+- ambiente de alta confiança e inovador, leva à criatividade
+- propriedade coletiva
+
+3 PILARES
+- princípios do scrum
+- processos do scrum
+- Aspectos do scrum
+
+PRINCÍPIOS - 6
+- controle de processo empírico
+- auto-organização
+- colaboração
+- priorização orientada a valor
+- time-boxing
+- desenvolvimento iterativo
+
+ASPECTOS
+- organização
+- justificativa de negócios (só fazer se fizer sentido ao negócio)
+- qualidade - priorizar à do cliente
+- mudança - lidar com elas
+- risco
+
+SBOK
+- facilita a melhor aplicação do Scrum
+- diferencia ferramentas obrigatórias e não obrigatórias
+- as principais estão com asterisco *
+
+
+FLUXO DO SCRUM
+- Caso de negóicio do projeto
+- Declaração da visão do projeto (fala em alto nível do que se deve fazer)
+- Backlog priorizado do produto (requisitos para o projeto, priorizados com base no valor)
+-- continuamente atualizado no projeto, para criar um planejamento de release e para incluir o backlog do sprint
+- Backlog do Sprint -> contem tudo para implementar o sprint ou iteração
+- reunião diária
+- criar entregáveis 
+- entregáveis aceitos -> reunião de revisão
+
+ORGANIZAÇÃO - PAPEIS CENTRAIS
+- Dono do produto (PO)
+- Scrum master
+- Time Scrum
+
+Dono do produto é responsável por atingir o máximo valor de negócio para o projeto, articula os requisitos do cliente, mantém justificativas para o projeto, representa a voz do cliente
+
+Scrum master mantém o time na direção correta
+
+Time scrum são os responsáveis por entender os requisitos especificados e criar os entregáveis.
+
+
+PAPEIS NÃO CENTRAIS
+- Stakeholders - todos os outros envolvidos no negócio.
+- Scrum Guidance Body (SGB) -> especialistas que são envolvidos para definir os objetivos relacionados a qualidade no scrum
+- Fornecedores (também stakeholders), fornecem produtos ou serviços estão dentro das competencias da organização do projeto.
+
+
+JUSTIFICATIVA DE NEGÓCIOS
+- positivos ou negtativos.
+- necessidades de negócio 
+- benefícios do projeto são os mensuraveis do projeto
+- custo de oportunidade são para escolher as melhores coisas ao projeto
+ - riscos
+- prazos
+- custo de proejeto
+
+ASPECTOS DO SCRUM - QUALIDADE
+critérios de aceitação
+- qualidade é definida como a capacidade do produto ou dos entregáveis ompletos em atender udo do que foi pedido
+- melhoria contínua, feedback são necessários para a qualidade 
+- esses critérios devem ser escritos para todas as histórias de usuário
+
+
+ciclo pdca 
+-> planejar, executar, verificar/estudar, agir.
+
+
+- PRAZO
+- 1 a 3 semanas cada sprint
+- tempo real para a execução do trabalho
+- PO tem que ficar de olho no backlog
+
+
+RISCO
+- probabilidade de ocorrência e impácto provável no evento da ocorrência.
+- Riscos com maior probabilidade e impacto devem ser tratados primeiro.
+
+
+PARA MITIGAR RISCOS:
+- flexibilidade reduz os riscos
+- coletar feedback regular. 
+- Enfase na responsabilidade 
+- transparecnai nos processo 
+- entregas interativas
+
+
+PRIORIZAÇÃO DE RISCOS
+- riscos priorizados (colocar todos por ordem)
+- escolher os que vc quer fazer alguma coisa
+- backlog priorizado e de produtos é atualizado
+
+
+INICIO DO PROJETO
+- escolher membros
+- Épicos são histórias de usuários maiores e mais refinadas, são a mesma coisa, mas maior. São criados para requisitos de valor elevado.
+- projetar sprint -> sempre tem que ter uma entrega de valor, pelo menos
+
+
+PLANEJAR E ESTIMAR
+- São projetadas histórias de usuários.
+- definir e criar critérios de aceitação, para avaliar as histórias de usuário
+- Essas histórias são normalmente criadas pelo PO
+- identificar as tarefas para cada história de usuário. Faz uma lista de tarefas e as estima.
+- a estima é feita pela equipe scrum.
+- criar o sprint becklog
+
+HISTÓRIA DE USUÁRIO:
+como tal, eu devo tchan, para que bimba aconteça.
+
+
+IMPLEMENTAR
+- criar os entregáveis
+- conduzir reunião diaria
+- 
+
+CRIAR ENTREGÁVEIS
+- criado um quadro de scrum, que é um kanban. 
+
+
+REVISÃO E RETROSPECTIVA
+- identificar coisas que o time precisa continuar fazendo, as melhores práticas
+- coisas que o time precisa começar a fazer: melhorias no processo
+- coisas que o time precisa parar de fazer, problemas e gargalos do processo.
+
+
+SCRUM PARA GRANDES PROJETOS 
+- tem várias equipes trabalhando
+- tem que garantir a sincronização entre as equipes
+
+
+SCRUM PARA EMPREENDIMENTOS
+- criar componentes do programa ou portfólio
+- compartilhar componentes entre dois ou mais programas
+- revisar e atualizar o SGB scrum guidance body
+- criar e refinar o backlog do programa ou portifólio
+- coordenar os componentes do portifólio
+- retrospectiva de releases do programa ou portifólio
+
+
+
+PRINCÍPIOS
+- controle de processos empíricos
+- transparencia (saber o que todos estão fazendo), inspeção (receber feedback e analisar o scrum board) e adaptação ( a partir da inspeção, melhoram o que fazem).
+
+
+AUTO-ORGANIZAÇÃO
+- empregados entregam valor maior quando auto-organizado
+
+
+COLABORAÇÃO
+- equipe trabalhando junto e colaborando com o cliente e stakholders
+- cooperação é a soma dos esforços das várias pessoas individuais
+- a COLABORALÇÃO é trabalhar com pessoas juntas, considerando esforços em conjunto, criando algo maior do que apenas as entradas individuais.
+
+precisa ter:
+- consciencia: todos tem que saber o que o outro faz.
+- articulação: tudo precisa ser particionado e abordado por grupos menores ou indivíduos, para reintregação dps
+- apropriação: adaptar a tecnologia à sua própria situação. 
+
+PRIORIZAÇÃO
+- PO faz de acordo com o que recebe do cliente. 
+- faz de acordo com o valor, risco e dependencia
+
+GERENCIAMENTO DE TEMPO
+- melhora velocidade, menos sobrecargas e processo eficiente
+reuniões daily de 15 min
+
+
+
+
