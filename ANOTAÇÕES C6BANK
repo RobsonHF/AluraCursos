@@ -152,3 +152,7 @@ PRECISO DE:
 ============== ROBO VAI
 - checa casos na fila
 - 
+
+
+==== SHOULD STOP
+- é a atividade para quando o próprio orchastrator pede stop do processo.
